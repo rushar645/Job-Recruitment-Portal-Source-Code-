@@ -1,0 +1,110 @@
+.footerContainer{
+    height: 70vh;
+    width: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.footerTopContainer{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid white; */
+}
+
+.footerBottomContainer{
+    height: 20%;
+    width: 100%;
+    /* border: 1px solid yellow; */
+}
+
+.footerTopLeftContainer{
+    height: 100%;
+    width: 40%;
+    /* border: 1px solid blue; */
+    /* background-color: red; */
+}
+
+.footerTopRightContainer{
+    height: 100%;
+    width: 60%;
+    /* background-color: blue; */
+}
+
+.footerTopLeftContainer>p{
+    width: 85%;
+    font-size: 1.1rem;
+}
+
+.footerTopLeftContainer>*{
+    margin: 4% 5%;
+}
+
+.footerTopLeftContainer>ul{
+    text-decoration: none;
+    color: white;
+    display: flex;
+    /* background-color: black; */
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+}
+
+.footerTopLeftContainer>ul>li{
+    display: flex;
+    flex-direction: row;
+}
+
+.footerTopLeftContainer>ul>li>*{
+    cursor: pointer;
+    margin: 0% 2%;
+}
+
+.footerTopRightContainer>div{
+    /* border: 0.5px solid white; */
+    height: 100%;
+    float: left;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerTopRightContainer>div>ul{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.footerTopRightContainer>div>ul>li{
+    list-style: none;
+    cursor: pointer;
+}
+
+.footerBottomContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footerBottomContainer>div{
+    width: 5%;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: ; */
+}
+
+.footerBottomContainer>div>*{
+    margin: 1% 2%;
+}
+
+.footerBottomContainer>h3>span{
+    color: #126b91;
+}

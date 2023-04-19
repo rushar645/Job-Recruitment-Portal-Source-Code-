@@ -1,0 +1,117 @@
+.signupBodyContainer{
+    min-height: 88vh;
+    height: 100%;
+    width: 100%;
+    /* background-color: burlywood; */
+    display: flex;
+    flex-direction: column;
+}
+
+.signupTabContainer{
+    height: 10vh;
+    width: 100%;
+    /* background-color: rgb(110, 143, 143); */
+    display: flex;
+    flex-direction: row;
+}
+
+.signupTabContainer>div{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    color: #12569b;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signupCandidateSectionContainer{
+    height: 78vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.tabDetailsLeftContainer{
+    height: 100%;
+    width: 50%;
+    /* background-color: cadetblue; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabDetailsLeftContainer>img{
+    height: 80%;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabDetailsRightContainer{
+    height: 100%;
+    width: 50%;
+    /* background-color: coral; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabDetailsRightContainer>input[type="text"],.tabDetailsRightContainer>input[type="email"],.tabDetailsRightContainer>input[type="password"]{
+    border: 2px solid lightgrey;
+    outline: none;
+    height: 8vh;
+    width: 80%;
+    margin: 2vh;
+    padding: 0% 2%;
+    font-size: large;
+    border-radius: 10px;
+}
+
+input:focus::placeholder{
+    color: transparent;
+}
+
+.checkBoxContainer{
+    height: 2vh;
+    width: 80%;
+    padding: 0% 2%;
+    display: flex;
+    flex-direction: row;
+}
+
+.checkBoxContainer>input{
+    height: 3vh;
+    width: 3vh;
+    cursor: pointer;
+}
+
+.checkBoxContainer>label{
+    margin: 0vh 2vh;
+}
+
+.signupEmployeeSectionContainer{
+    height: 78vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.activeTab{
+    border-bottom: 2px solid #12569b;
+}
+
+.warning{
+    border: 3px solid red !important;
+}
+
+.hide{
+    display: none;
+}

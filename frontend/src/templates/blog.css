@@ -1,0 +1,53 @@
+.blogMainContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.latestBlogsContainer{
+    height: 82vh;
+    width: 70%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popularBlogsContainer{
+    height: 82vh;
+    width: 26%;
+    margin: 1%;
+    /* border: 1px solid lightgray; */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.popularBlogsSection{
+    height: 85%;
+    width: 98%;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blogSectionHeading{
+    height: 10%;
+    width: 100%;
+    /* background-color: blanchedalmond; */
+    border-bottom: 2px solid rgb(207, 207, 207);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

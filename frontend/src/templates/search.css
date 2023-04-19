@@ -1,0 +1,143 @@
+.mainSearchBodyContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.mainSearchHeaderContainer{
+    height: 55vh;
+    width: 100%;
+    background: url("./../static/images/abstract_design_pattern.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.searchHeaders{
+    height: 55%;
+    width: 98%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchParamFieldsContainer{
+    height: 45%;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchParamFields{
+    height: 11vh;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+}
+
+.searchParamFields>input{
+    height: 75%;
+    width: 30%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    padding-left: 10px;
+}
+
+.searchParamFields>div{
+    height: 75%;
+    width: 30%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.searchParamFields>div>div{
+    height: 100%;
+    width:100%;
+    border: none;
+}
+
+.mainSearchBottomBodyContainer{
+    height: 200vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mainSearchOptionSection{
+    height: 100%;
+    width: 25%;
+}
+
+.mainSearchResultsContainer{
+    height: 100%;
+    width: 73%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.resultJobCardsContainer{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2vh;
+}
+
+.paginationIndicators{
+    height: 5%;
+    width: 96%;
+    margin: 2vh;
+    display: flex;
+    border: none;
+    border-radius: 50px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.paginationIndicators>h4{
+    height: 4vh;
+    width: 4vh;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 50px;
+}
+
+.paginationIndicators>h4:hover{
+    background-color: rgb(64, 64, 243);
+    color: white;
+}
+
+.paginationIndicators>h4:active{
+    background-color: rgb(64, 64, 243);
+    color: white;
+}

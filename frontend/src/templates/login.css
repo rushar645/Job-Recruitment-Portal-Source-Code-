@@ -1,0 +1,103 @@
+body{
+    height: 100%;
+    width: 100vw;
+}
+
+.loginBodyContainer {
+    height: 88vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* background: url('./../static/images/trial.png'); */
+    /* background-blend-mode: lighten; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.loginFormOuterContainer {
+    height: 80vh;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* background-color: darkgoldenrod; */
+}
+
+.loginFormContainer {
+    height: 70vh;
+    width: 90%;
+    /* background-color: burlywood; */
+    margin: 2% 0%;
+    border: none;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.loginFormInnerContainer {
+    height: 100%;
+    width: 45%;
+    /* background-color: #f1f2f3; */
+    border: none;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginFormInnerContainer>a{
+    margin-top: -25px;
+    color: #0000EE;
+    font-size: small;
+}
+
+.LoginForm {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 15px;
+}
+
+.LoginForm>input {
+    border: 2px solid lightgrey;
+    outline: none;
+    height: 8vh;
+    width: 80%;
+    margin: 2vh 1vh;
+    padding: 0% 2%;
+    font-size: large;
+    border-radius: 10px;
+}
+
+.LoginForm>input:focus::placeholder{
+    color: transparent;
+}
+
+.loginFormSibling {
+    height: 100%;
+    width: 45%;
+    /* background-color: cadetblue; */
+    border: none;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginFormSibling>img{
+    max-width: 110%;
+    height: auto;
+}

@@ -1,0 +1,53 @@
+.smallCardContainer {
+    height: 35%;
+    /* overflow: hidden; */
+    width: 96%;
+    margin: 3% 1%;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.smallCardContainer:hover{
+    cursor: pointer;
+    -webkit-box-shadow: 2px 2px 15px 1px rgba(79, 79, 79, 0.35);
+    -moz-box-shadow: 2px 2px 15px 1px rgba(79, 79, 79, 0.35);
+    box-shadow: 2px 2px 15px 1px rgba(79, 79, 79, 0.35);
+}
+
+.smallCardContainer:active{
+    box-shadow: none;
+}
+
+.smallCardImgContainer {
+    height: 100%;
+    width: 30%;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.smallCardContentContainer {
+    height: 100%;
+    width: 70%;
+}
+
+.smallCardContentHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-transform: capitalize;
+}
+
+.smallCardContentHeader>h4{
+    margin: 2%;
+}
+
+.smallCardContentContainer>p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    margin: 2%;
+}
