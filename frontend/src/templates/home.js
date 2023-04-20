@@ -3,12 +3,15 @@ import Select from "react-select";
 import Button from "@mui/material/Button";
 import Footer from "./../partials/footer";
 import DummyLogo from "./../static/images/dummyLogo.png";
+import BlogSmallCard from "./../components/blogCards/blogSmallCard";
+import SmallJobCard from "./../components/jobCards/smallJobCard";
+import TestimonialCard from "./../components/testimonial/testimonialPortrait";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
 
 const selOption = [
-    { value: "Engineering", label: "Engineering" , className: "optionStyles"},
+    { value: "Engineering", label: "Engineering" , clasName: " optionStyles"},
     { value: "Computer-Science", label: "Computer Science" , className: "optionStyles"},
     { value: "Management", label: "Management" , className: "optionStyles"},
     { value: "Sales", label: "Sales" , className: "optionStyles"},
@@ -37,19 +40,34 @@ const selectMenuSx={
 };
 
 
-// const blogData = {
-//     title: "this is a title",
-//     content: `A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
+const blogData = [{
+    title: "this is a title",
+    content: `A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
 
-//     Content on Instagram, Twitter, Twitch, TikTok and everywhere else online is prolific—it’s hard to stand out, even in a small group. That’s because the universal font each platform uses makes all content blend together.
+    Content on Instagram, Twitter, Twitch, TikTok and everywhere else online is prolific—it’s hard to stand out, even in a small group. That’s because the universal font each platform uses makes all content blend together.
     
-//     With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
+    With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
 
-//     Content on Instagram, Twitter, Twitch, TikTok and everywhere else online is prolific—it’s hard to stand out, even in a small group. That’s because the universal font each platform uses makes all content blend together.
+    Content on Instagram, Twitter, Twitch, TikTok and everywhere else online is prolific—it’s hard to stand out, even in a small group. That’s because the universal font each platform uses makes all content blend together.
     
-//     With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.`
-// }
+    With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.`
+}]
 
+const jobData = [{
+    companyName: "CareerMeet Inc.",
+    companyLogo: require("./../static/images/sampleLogo.png"),
+    jobTitle: "DEVELOPER",
+    jobType: "Full Time",
+    category: "Web Technology",
+    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    experience: "5",
+    expectedSalary: "10"
+}]
+
+const testimonialData = [{
+    userName: "John Doe",
+    userComment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+}]
 
 function Home() {
     const [val, setVal] = useState('');
@@ -92,7 +110,10 @@ function Home() {
                         </h1>
                     </div>
                     <div className="jobCardsContainer">
-
+                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/>
                     </div>
                 </div>
                 <div className="companyRecommendationSection">
@@ -115,6 +136,8 @@ function Home() {
                         <h1>Tips from our Members</h1>
                     </div>
                     <div className="blogCardsContainer">
+                        <BlogSmallCard blogdata={blogData[0]} />
+                        <BlogSmallCard blogdata={blogData[0]} />
                     </div>
                 </div>
                 <div className="testimonialsSection">
@@ -122,7 +145,10 @@ function Home() {
                         <h4>Testimonials</h4>
                         <h1>Comments from our Users</h1>
                     </div>
-                    <div className="testimonialsCardsContainer"></div>
+                    <div className="testimonialsCardsContainer">
+                        <TestimonialCard testimonialData={testimonialData[0]} />
+                        <TestimonialCard testimonialData={testimonialData[0]} />
+                    </div>
                 </div>
             </div>
             <Footer></Footer>

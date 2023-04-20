@@ -1,9 +1,9 @@
 .smallJobCardMainContainer{
-    height: 80%;
+    height: 51vh;
     width: 20%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: white;
     border: none;
     border-radius: 20px;
@@ -79,10 +79,11 @@
 .smallJobCardDetails>p{
     height: 100%;
     width: 100%;
+    line-height: 21px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box !important;
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     white-space: normal;
 }

@@ -8,7 +8,7 @@ const smallCardImgContainer={
     backgroundRepeat: "norepeat"
 }
 
-function blogSmallCard(props){
+function blogSmallCard(props) {
     return (
         <div className="smallCardContainer">
             <div className="smallCardImgContainer" style={smallCardImgContainer}>
