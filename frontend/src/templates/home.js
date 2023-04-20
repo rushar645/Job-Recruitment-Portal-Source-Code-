@@ -2,6 +2,7 @@ import "./home.css";
 import Select from "react-select";
 import Button from "@mui/material/Button";
 import Footer from "./../partials/footer";
+import SmallJobCard from "./../components/jobCards/smallJobCard";
 import DummyLogo from "./../static/images/dummyLogo.png";
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -36,7 +37,6 @@ const selectMenuSx={
       }
 };
 
-
 // const blogData = {
 //     title: "this is a title",
 //     content: `A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
@@ -50,17 +50,26 @@ const selectMenuSx={
 //     With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.`
 // }
 
+const jobData = [{
+    companyName: "CareerMeet Inc.",
+    companyLogo: require("./../static/images/sampleLogo.png"),
+    jobTitle: "DEVELOPER",
+    jobType: "Full Time",
+    category: "Web Technology",
+    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    experience: "5",
+    expectedSalary: "10"
+}]
 
 function Home() {
     const [val, setVal] = useState('');
-    const fetxhData = async () => {
-        var { data } = await axios.get('htt]s://127.0.0.1:5000/');
+    const fetchData = async () => {
+        var { data } = await axios.get('http://127.0.0.1:5000/');
         setVal(data);
     }
     console.log(val);
-
     useEffect(() => {
-        fetxhData();
+        fetchData();
     }, []);
 
     return (
@@ -92,7 +101,10 @@ function Home() {
                         </h1>
                     </div>
                     <div className="jobCardsContainer">
-
+                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/>
                     </div>
                 </div>
                 <div className="companyRecommendationSection">

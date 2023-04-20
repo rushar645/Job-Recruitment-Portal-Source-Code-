@@ -1,0 +1,43 @@
+.smallJobCardMainContainer{
+    height: 80%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: blue;
+    border: none;
+    border-radius: 20px;
+    padding: 1%;
+}
+
+.smallJobCardHeaders{
+    height: 20%;
+    width: 100%;
+    background-color: aliceblue;
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: row;
+}
+
+.imageHeader{
+    height: 100%;
+    width: 30%;
+}
+
+.titleHeader{
+    height: 100%;
+    width: 70%;
+}
+
+.smallJobCardAttributes{
+    height: 40%;
+    width: 100%;
+    background-color: aqua;
+    margin-bottom: 1%;
+}
+
+.smallJobCardDetails{
+    height: 30%;
+    width: 100%;
+    background-color: azure;
+}
