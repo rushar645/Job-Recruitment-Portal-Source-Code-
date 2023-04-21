@@ -72,7 +72,7 @@ const testimonialData = [{
 function Home() {
     const [val, setVal] = useState('');
     const fetxhData = async () => {
-        var { data } = await axios.get('htt]s://127.0.0.1:5000/');
+        var { data } = await axios.get('http://127.0.0.1:5000/');
         setVal(data);
     }
     console.log(val);
@@ -91,9 +91,7 @@ function Home() {
                     </div>
                     <div className="searchParamsBar">
                         <form action="/search" method="POST" className="searchParamsForm">
-                            <input type="text" placeholder="Enter Job Title/Skills">
-
-                            </input>
+                            <input type="text" placeholder="Enter Job Title/Skills"/>
                             <Select options={selOption} name="categories" styles={selectMenuSx}>
                             </Select>
                             <Button variant="contained" sx={searchBtnSx}>

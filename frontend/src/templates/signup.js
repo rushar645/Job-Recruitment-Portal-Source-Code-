@@ -1,6 +1,7 @@
 import "./signup.css";
 import { useState } from "react";
 import JoinUs from "./../static/images/join_us.png";
+import SignupImg from "./../static/images/signup_img.png";
 
 const handleTabClick = (event) => {
     event.preventDefault();
@@ -92,7 +93,7 @@ function Signup() {
                     <input type="submit" style={submitBtnStyle} value="Signup" />
                 </form>
                 <div className="tabDetailsLeftContainer">
-                    <img src={JoinUs} title="Join Us" alt="Join Us" />
+                    <img src={SignupImg} title="Join Us" alt="Join Us" />
                 </div>
             </div>
         </div>
