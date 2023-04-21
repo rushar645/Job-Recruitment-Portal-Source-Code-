@@ -1,7 +1,7 @@
 import "./smallJobCard.css";
 
 const SmallJobCard = (props) => {
-    console.log(props.jobData);
+    // console.log(props.jobData);
     return (
         <div className="smallJobCardMainContainer">
             <div className="smallJobCardHeaders">
