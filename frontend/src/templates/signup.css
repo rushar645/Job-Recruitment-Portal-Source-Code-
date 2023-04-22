@@ -65,14 +65,14 @@
 }
 
 .tabDetailsRightContainer>input[type="text"],.tabDetailsRightContainer>input[type="email"],.tabDetailsRightContainer>input[type="password"]{
-    border: 2px solid lightgrey;
+    border: 1px solid lightgrey;
     outline: none;
-    height: 8vh;
-    width: 80%;
+    height: 6vh;
+    width: 60%;
     margin: 2vh;
     padding: 0% 2%;
-    font-size: large;
-    border-radius: 10px;
+    font-size: small;
+    border-radius: 5px;
 }
 
 input:focus::placeholder{
@@ -81,8 +81,8 @@ input:focus::placeholder{
 
 .checkBoxContainer{
     height: 2vh;
-    width: 80%;
-    padding: 0% 2%;
+    width: 60%;
+    padding: 0% 1%;
     display: flex;
     flex-direction: row;
 }
@@ -95,6 +95,7 @@ input:focus::placeholder{
 
 .checkBoxContainer>label{
     margin: 0vh 2vh;
+    font-size: medium;
 }
 
 .signupEmployeeSectionContainer{
