@@ -1,5 +1,6 @@
 import './App.css';
-import Navbar  from './partials/navbar';
+import Navbar from './partials/navbar';
+import {ToastContainer} from "react-toastify";
 
 
 function App() {
@@ -20,7 +21,10 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-    <Navbar/>
+    <>
+      <Navbar />
+      <ToastContainer/>
+    </>
   );
 }
 

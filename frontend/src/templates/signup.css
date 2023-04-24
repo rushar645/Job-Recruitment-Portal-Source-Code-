@@ -116,3 +116,7 @@ input:focus::placeholder{
 .hide{
     display: none;
 }
+
+.toast-message{
+    width: 50vw;
+}

@@ -3,6 +3,9 @@ import { useState } from "react";
 import JoinUs from "./../static/images/join_us.png";
 import SignupImg from "./../static/images/signup_img.png";
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const handleTabClick = (event) => {
   event.preventDefault();
@@ -66,17 +69,30 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [verifyPwd, setVerifyPwd] = useState("");
   const [companyEmail, setCompanyEmail] = useState("");
+  // let navigate = useNavigate();
+
+  const createaToast = (message) => {
+    toast.info(message,{
+      position: toast.POSITION.BOTTOM_CENTER,
+      theme: "colored",
+      className: "toast-message"
+    });
+  }
+
 
   const postFormData = async (formData) => {
     let res = await axios
       .post("http://127.0.0.1:5000/signup",formData)
       .then((response) => {
-        return response.data;
+        return response;
       })
       .catch((err) => {
         console.log(err);
       });
     console.log(res);
+    if (res.status === 209) {
+      createaToast("Signup Succesful! Please check your mail and verify your account before Login.");
+    }
   };
 
   const collectFormData = (e) => {
@@ -87,6 +103,7 @@ function Signup() {
         username: username,
         email: email,
         password: password,
+        role:'user'
       };
     } else if (companyEmail.length > 0 && password === verifyPwd) {
       formData = {
@@ -94,9 +111,10 @@ function Signup() {
         companyEmail: companyEmail,
         email: email,
         password: password,
+        role:'employer'
       };
     }
-    console.log(formData);
+    // console.log(formData);
     postFormData(formData);
   };
 

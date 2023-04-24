@@ -2,36 +2,83 @@ import "./login.css";
 import * as React from "react";
 import { Button } from "@mui/material";
 import Image from "./../static/images/ResumeIllustration.png";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link,useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   const postData = async (formData) => {
     console.log(formData);
     const res = await axios
-      .post("http://127.0.0.1:5000/login", formData)
+      .post("http://localhost:5000/login", formData)
       .then((response) => {
-        console.log(response);
-        return response.data;
+        console.log(response.status,typeof(response.status));
+        return response.status;
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(res);
+    if ((res===211)) {
+      toast.info("User not Found.Please signup to our website first.", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message",
+      });
+    }
+    if (res=== 212) {
+      toast.info("Incorrect Password", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message",
+      });
+    }
+    if (res === 210) {
+      navigate("/", { replace: true });
+    }
   };
 
   const collectFormdata = (e) => {
     e.preventDefault();
-    var formData = {
-      email: email,
-      password: password,
-    };
-    postData(formData);
+    var emailFormat = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    if (!email.match(emailFormat)) {
+      toast.warning("Please enter according to correct Email format.", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message",
+      });
+      return;
+    }
+
+    if (email.length === 0 || password.length < 8) {
+      if (password.length < 8) {
+        toast.warning("Password too small!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+      }
+      if (email.length === 0) {
+        toast.warning("Email Field is empty", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+      }
+      return;
+    } else {
+      var formData = {
+        email: email,
+        password: password,
+      };
+      postData(formData);
+    }
     // document.getElementById("loginForm").submit();
   };
 
