@@ -1,0 +1,15 @@
+.mainContainer{
+    height: 50vh;
+    width: 50%;
+    margin: auto;
+    /* background-color: bisque; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainer>img{
+    height: 70%;
+    width: auto;
+}
