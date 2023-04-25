@@ -3,6 +3,7 @@ const userModel=require("./../database/model/userModel");
 module.exports.createNewUser=async(userData)=>{
   console.log("SERVICE: ",userData);
   let createUser=await userModel.create(userData);
+  console.log(createUser);
 }
 
 module.exports.findUser=function(email){

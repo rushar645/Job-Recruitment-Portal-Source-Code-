@@ -46,22 +46,6 @@ const submitBtnStyle = {
   cursor: "pointer",
 };
 
-const validateFormInput = (event) => {
-  event.preventDefault();
-  var emailFormat = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
-  console.log(event.target.name);
-  if (event.target.email.value.match(emailFormat)) {
-    event.target.email.classList.remove("warning");
-    console.log("MATCHED");
-    return true;
-  } else {
-    event.target.email.classList.add("warning");
-    event.target.email.focus();
-    console.log("NOT MATCHED");
-    return false;
-  }
-};
-
 function Signup() {
   const [isVisible, setIsVisible] = useState(false);
   const [username, setUsername] = useState("");
@@ -71,51 +55,143 @@ function Signup() {
   const [companyEmail, setCompanyEmail] = useState("");
   // let navigate = useNavigate();
 
-  const createaToast = (message) => {
-    toast.info(message,{
-      position: toast.POSITION.BOTTOM_CENTER,
-      theme: "colored",
-      className: "toast-message"
-    });
-  }
-
+  const validateFormInput = () => {
+    var emailFormat = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    if (document.getElementById("Candidate").classList.contains("activeTab")) {
+      if (
+        email.length === 0 ||
+        password.length === 0 ||
+        username === 0 ||
+        verifyPwd === 0
+      ) {
+        toast.error("Please fill all fields.", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }
+      else if (!email.match(emailFormat)) {
+        toast.error("Please enter a valid email", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }
+      else if (password !== verifyPwd) {
+        toast.error("Passwords do not match", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }else if(password.length<8 || verifyPwd.length<8){
+        toast.error("Password must be at least 8 characters", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }else{
+        return true;
+      }
+    } else if (
+      document.getElementById("Employee").classList.contains("activeTab")
+    ) {
+      if (
+        email.length === 0 ||
+        password.length === 0 ||
+        username === 0 ||
+        verifyPwd === 0 ||
+        companyEmail === 0
+      ) {
+        toast.error("Please fill all the fields.", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }
+      else if (!email.match(emailFormat) || !companyEmail.match(emailFormat)) {
+        toast.error("Please enter a valid email", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }
+      else if (password !== verifyPwd) {
+        toast.error("Passwords do not match", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }else if(password.length<8 || verifyPwd.length<8){
+        toast.error("Password must be at least 8 characters", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message",
+        });
+        return false;
+      }else{
+        return true;
+      }
+    }
+  };
 
   const postFormData = async (formData) => {
     let res = await axios
-      .post("http://127.0.0.1:5000/signup",formData)
+      .post("http://127.0.0.1:5000/signup", formData)
       .then((response) => {
-        return response;
+        return response.status;
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(res);
-    if (res.status === 209) {
-      createaToast("Signup Succesful! Please check your mail and verify your account before Login.");
+    if (res === 209) {
+      let message =
+        "Signup Succesful! Please check your mail and verify your account before Login.";
+      toast.info(message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message",
+      });
+    }
+    if(res===213){
+      toast.info("Email already in use.",{
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      })
     }
   };
 
   const collectFormData = (e) => {
     e.preventDefault();
-    var formData;
-    if (companyEmail.length === 0 && password === verifyPwd) {
-      formData = {
-        username: username,
-        email: email,
-        password: password,
-        role:'user'
-      };
-    } else if (companyEmail.length > 0 && password === verifyPwd) {
-      formData = {
-        username: username,
-        companyEmail: companyEmail,
-        email: email,
-        password: password,
-        role:'employer'
-      };
+    if (validateFormInput()) {
+      console.log("Form Validated");
+      var formData;
+      if (companyEmail.length === 0 && password === verifyPwd) {
+        formData = {
+          username: username,
+          email: email,
+          password: password,
+          role: "user",
+        };
+      } else if (companyEmail.length > 0 && password === verifyPwd) {
+        formData = {
+          username: username,
+          companyEmail: companyEmail,
+          email: email,
+          password: password,
+          role: "employer",
+        };
+      }
+      // console.log(formData);
+      postFormData(formData);
     }
-    // console.log(formData);
-    postFormData(formData);
   };
 
   return (
@@ -136,11 +212,9 @@ function Signup() {
           className="tabDetailsRightContainer"
           name="candidateForm"
           id="candidateSignupform"
-          onSubmit={validateFormInput}
         >
           <input
             type="text"
-            id=""
             name="name"
             value={username}
             onChange={(e) => {
@@ -151,7 +225,6 @@ function Signup() {
           />
           <input
             type="email"
-            id=""
             name="email"
             value={email}
             onChange={(e) => {
@@ -162,7 +235,6 @@ function Signup() {
           />
           <input
             type={isVisible ? "text" : "password"}
-            id=""
             name="password"
             value={password}
             onChange={(event) => {
@@ -176,7 +248,6 @@ function Signup() {
           />
           <input
             type={isVisible ? "text" : "password"}
-            id=""
             name="confirmPassword"
             value={verifyPwd}
             onChange={(event) => {
@@ -207,11 +278,9 @@ function Signup() {
           className="tabDetailsRightContainer"
           name="employeeForm"
           id="employeeSignupform"
-          onSubmit={validateFormInput}
         >
           <input
             type="text"
-            id=""
             name="name"
             value={username}
             onChange={(e) => {
@@ -222,7 +291,6 @@ function Signup() {
           />
           <input
             type="email"
-            id=""
             name="companyEmail"
             value={companyEmail}
             onChange={(e) => {
@@ -233,7 +301,6 @@ function Signup() {
           />
           <input
             type="email"
-            id=""
             name="email"
             value={email}
             onChange={(e) => {
@@ -244,7 +311,6 @@ function Signup() {
           />
           <input
             type={isVisible ? "text" : "password"}
-            id=""
             name="password"
             value={password}
             onChange={(event) => {
@@ -256,7 +322,6 @@ function Signup() {
           />
           <input
             type={isVisible ? "text" : "password"}
-            id=""
             name="confirmPassword"
             value={verifyPwd}
             onChange={(event) => {

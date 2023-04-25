@@ -9,14 +9,18 @@ const userData = {
   userImg: require("./../static/images/tickmark.png"),
 };
 
-const changeBg = () => {
+const changeBg = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
   let tabs = document.querySelectorAll(".leftMenu div");
-  let tabContent = document.querySelectorAll(".rightFieldsContainer div");
+  let tabContent = document.querySelectorAll(".rightFieldsContainer>div");
+  console.log("Tabs Content: ",tabContent)
   tabs.forEach((tab) => {
     if (tab.classList.contains("active")) {
       tab.classList.remove("select", "active");
     }
     tabContent.forEach((con) => {
+      // console.log(con);
       con.classList.add("hide");
     });
   });
@@ -46,11 +50,11 @@ const ProfilePage = () => {
             className="select active"
             onClick={(e) => {
               e.preventDefault();
-              changeBg();
+              e.stopPropagation();
+              changeBg(e);
               e.target.classList.add("select", "active");
-              document
-                .querySelector("#profileContent")
-                .classList.remove("hide");
+              let ele = document.getElementById("profileContent");
+              ele.classList.remove("hide");
             }}
           >
             Profile
@@ -59,11 +63,11 @@ const ProfilePage = () => {
             className=""
             onClick={(e) => {
               e.preventDefault();
-              changeBg();
+              e.stopPropagation();
+              changeBg(e);
               e.target.classList.add("select", "active");
-              document
-                .querySelector("#accountContent")
-                .classList.remove("hide");
+              let ele = document.getElementById("accountContent");
+              ele.classList.remove("hide");
             }}
           >
             Account & Security
@@ -72,11 +76,11 @@ const ProfilePage = () => {
             className=""
             onClick={(e) => {
               e.preventDefault();
-              changeBg();
+              e.stopPropagation();
+              changeBg(e);
               e.target.classList.add("select", "active");
-              document
-                .querySelector("#historyContent")
-                .classList.remove("hide");
+              let ele = document.getElementById("historyContent");
+              ele.classList.remove("hide");
             }}
           >
             Activity History
@@ -85,9 +89,11 @@ const ProfilePage = () => {
             className=""
             onClick={(e) => {
               e.preventDefault();
-              changeBg();
+              e.stopPropagation();
+              changeBg(e);
               e.target.classList.add("select", "active");
-              document.querySelector("#helpContent").classList.remove("hide");
+              let ele = document.getElementById("helpContent");
+              ele.classList.remove("hide");
             }}
           >
             Help & Support
@@ -98,7 +104,7 @@ const ProfilePage = () => {
         </div>
       </div>
       <div className="rightFieldsContainer">
-        <div id="profileContent">
+        <div id="profileContent" className="">
           <div className="profileImg">
             <div className="imageBox">
               <img src={previewFile} alt="User" />
@@ -132,7 +138,7 @@ const ProfilePage = () => {
               </div>
             </div>
             <div className="preferenceSkills">
-            <h1>Personal Information</h1>
+              <h1>Personal Information</h1>
               <form>
                 <input type="text" placeholder="Full Name"></input>
                 <input type="email" placeholder="Email"></input>
@@ -153,13 +159,13 @@ const ProfilePage = () => {
           </div>
         </div>
         <div id="accountContent" className="hide">
-          <div></div>
+          <div>ACCOUNT</div>
         </div>
         <div id="historyContent" className="hide">
-          <div></div>
+          <div>HISTORY</div>
         </div>
         <div id="helpContent" className="hide">
-          <div></div>
+          <div>HELP CONTENT</div>
         </div>
       </div>
     </div>

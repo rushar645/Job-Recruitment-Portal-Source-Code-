@@ -44,7 +44,7 @@ app.post("/login", async (req, res) => {
     res.statusMessage = "User not Found! Please Signup to proceed.";
     res.status(211).end();
   } else {
-    let matchPassword = await hashServices.matchPassword(
+    let matchPassword = await hashServices.comparePassword(
       pwd,
       foundUser.password
     );
@@ -70,16 +70,16 @@ app.post("/signup", async (req, res) => {
   let pwd = req.body.password;
   let role = req.body.role;
   console.log(username, emailAdd, pwd, role);
-  let foundUser = await userServices.findUser(email);
+  let foundUser = await userServices.findUser(emailAdd);
   if (foundUser.length !== 0) {
     res.statusMessage = "Email Already in Use";
     res.status(213).end();
   } else {
-    const hashedPassword = await hashServices.hashPassword(password);
+    const hashedPassword = await hashServices.hashPassword(pwd);
     const userObj = {
       username: username,
       Email: emailAdd,
-      password: pwd,
+      password: hashedPassword,
       verificationStatus: false,
       role: role,
     };
