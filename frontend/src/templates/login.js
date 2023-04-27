@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../contexts/AuthContext";
 
 function LoginForm() {
   const [password, setPassword] = useState("");
@@ -14,11 +15,13 @@ function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
+  const { setAuth } = useAuth();
+
   const postData = async (formData) => {
     console.log(formData);
     // axios.defaults.withCredentials = true;
     const res = await axios
-      .post("http://localhost:5000/login",formData)
+      .post("/api/login",formData)
       .then((response) => {
         console.log(response.status,typeof(response.status));
         return response.status;
@@ -41,6 +44,7 @@ function LoginForm() {
       });
     }
     if (res === 210) {
+      setAuth(true);
       navigate("/", { replace: true });
     }
   };

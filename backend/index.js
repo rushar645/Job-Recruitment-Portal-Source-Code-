@@ -27,12 +27,14 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   // console.log("home: ", req.session, req.sessionID);
-  res.send("welcome!");
+  // res.send("welcome!");
+  console.log(req.session);
+  res.end();
 });
 
-app.get("/getUserRoles", async (req, res) => {
+app.get("/api/getUserRoles", async (req, res) => {
   console.log(req.session.isAuthenticated);
   if (req.session.isAuthenticated) {
     let uname = req.session.username;
@@ -40,13 +42,14 @@ app.get("/getUserRoles", async (req, res) => {
     foundUser = foundUser[0];
     res.statusMessage = "User Authenticated!";
     res.status(215).json({ userData: foundUser });
+    res.end();
   } else {
     res.statusMessage = "No Authentication!";
     res.status(216).send();
   }
 });
 
-app.get("/verify/:username", (req, res) => {
+app.get("/api/verify/:username", (req, res) => {
   let uname = req.params.username;
   console.log(uname);
   var foundData = userServices.findUserByName(uname);
@@ -57,11 +60,11 @@ app.get("/verify/:username", (req, res) => {
   res.status(214).end();
 });
 
-app.get("/login", (req, res) => {});
+app.get("/api/login", (req, res) => {});
 
-app.get("/signup", () => {});
+app.get("/api/signup", () => {});
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   console.log(req.body);
   let emailAdd = req.body.email;
   let pwd = req.body.password;
@@ -87,7 +90,7 @@ app.post("/login", async (req, res) => {
       req.session.isAuthenticated = true;
       req.session.username = foundUser.username;
       req.session.role = foundUser.role;
-      // console.log(req.session, req.sessionID);
+      console.log(req.session);
       // req.session.save();
       res.header("Access-Control-Allow-Origin");
       res.statusMessage = "Login Successful!";
@@ -96,7 +99,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   let username = req.body.username;
   let emailAdd = req.body.email;
   let pwd = req.body.password;
@@ -123,13 +126,13 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/search", (req, res) => {});
+app.post("/api/search", (req, res) => {});
 
-app.post("/blog", (req, res) => {});
+app.post("/api/blog", (req, res) => {});
 
-app.post("/forgotpassword", (req, res) => {});
+app.post("/api/forgotpassword", (req, res) => {});
 
-app.post("/profile", (req, res) => {});
+app.post("/api/profile", (req, res) => {});
 
 const generateOTP = (len = 6) => {
   let otp = "";

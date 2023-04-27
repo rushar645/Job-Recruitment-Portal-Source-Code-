@@ -143,7 +143,7 @@ function Signup() {
 
   const postFormData = async (formData) => {
     let res = await axios
-      .post("http://127.0.0.1:5000/signup", formData)
+      .post("/api/signup", formData)
       .then((response) => {
         return response.status;
       })

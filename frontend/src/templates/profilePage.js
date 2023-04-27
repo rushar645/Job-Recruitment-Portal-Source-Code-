@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 const userData = {
   username: "Purushartha",
   useremail: "purushartha3011@gmail.com",
-  userImg: require("./../static/images/tickmark.png"),
+  userImg: require("./../static/images/contacts.png"),
 };
 
 const changeBg = (e) => {

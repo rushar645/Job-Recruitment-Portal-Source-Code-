@@ -8,12 +8,16 @@ import Signup from "./../templates/signup";
 import ForgotPassword from "./../templates/forgotPassword";
 import VerifyAccount from "./../templates/verifyAccount";
 import ProfilePage from "./../templates/profilePage";
+import AuthLayout from "./../templates/authLayout";
+import { useAuth } from "../contexts/AuthContext";
 
 function Navbar() {
+  const { auth } = useAuth();
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={auth?<AuthLayout/>:<Layout />}>
           <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="blog" element={<Blog />} />
