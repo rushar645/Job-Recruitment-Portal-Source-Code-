@@ -16,8 +16,9 @@ function LoginForm() {
 
   const postData = async (formData) => {
     console.log(formData);
+    // axios.defaults.withCredentials = true;
     const res = await axios
-      .post("http://localhost:5000/login", formData)
+      .post("http://localhost:5000/login",formData)
       .then((response) => {
         console.log(response.status,typeof(response.status));
         return response.status;

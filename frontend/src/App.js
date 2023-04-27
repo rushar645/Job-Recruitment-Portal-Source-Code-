@@ -1,9 +1,37 @@
 import './App.css';
 import Navbar from './partials/navbar';
-import {ToastContainer} from "react-toastify";
-
+import { ToastContainer } from "react-toastify";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [isAuthenticated, setAuthentication] = useState(false);
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+  
+    let res = await axios
+      .get("http://127.0.0.1:5000/getUserRoles")
+        .then((response) => {
+          console.log(response);
+          return response;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log("Request Response: ", res);
+      if (res.data) {
+        console.log("User Found!");
+        setAuthentication(!isAuthenticated);
+      } else {
+        console.log("User Not Found!");
+      }
+    };
+    console.log("NAVBAR: ");
+    fetchData();
+  }, [isAuthenticated]);
+
   return (
     // <div className="App">
     //   <header className="App-header">
