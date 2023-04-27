@@ -20,8 +20,8 @@ const AuthProvider = ({ children }) => {
           '/api/getUserRoles',
           { withCredentials: true }
         );
-        console.log(res,"AUTH",auth);
-        setUser(res.data);
+        console.log(res,"AUTH",auth,res.data.userData);
+        setUser(res.data.userData);
       } catch(error) {
         setUser(null);
       };

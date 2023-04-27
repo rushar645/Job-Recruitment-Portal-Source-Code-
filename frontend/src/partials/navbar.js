@@ -10,14 +10,19 @@ import VerifyAccount from "./../templates/verifyAccount";
 import ProfilePage from "./../templates/profilePage";
 import AuthLayout from "./../templates/authLayout";
 import { useAuth } from "../contexts/AuthContext";
+import CreateJobPost from "./../templates/createJobPost";
+// import axios from "axios";
+// import { useEffect } from "react";
+
 
 function Navbar() {
-  const { auth } = useAuth();
+  const { auth,setAuth, user } = useAuth();
 
+  console.log("ACTIVE USER: ",user);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={auth?<AuthLayout/>:<Layout />}>
+        <Route path="/" element={auth?<AuthLayout userData={user}/>:<Layout />}>
           <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="blog" element={<Blog />} />
@@ -27,7 +32,8 @@ function Navbar() {
           <Route path="forgotpassword" element={<ForgotPassword />} />
           <Route exact path="verifyAccount" />
           <Route path="verifyAccount/:userid" element={<VerifyAccount />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile" element={<ProfilePage userData={user} />} />
+          <Route path="postJob" element={<CreateJobPost />}/>
         </Route>
       </Routes>
     </BrowserRouter>

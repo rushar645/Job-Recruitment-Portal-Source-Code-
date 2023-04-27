@@ -3,11 +3,11 @@ import "./profilePage.css";
 import UserProfile from "../components/profilePic/userProfile";
 import Button from "@mui/material/Button";
 
-const userData = {
-  username: "Purushartha",
-  useremail: "purushartha3011@gmail.com",
-  userImg: require("./../static/images/contacts.png"),
-};
+// const userData = {
+//   username: "Purushartha",
+//   useremail: "purushartha3011@gmail.com",
+//   userImg: require("./../static/images/contacts.png"),
+// };
 
 const changeBg = (e) => {
   e.preventDefault();
@@ -35,17 +35,19 @@ const btnHoverSx = {
   },
 };
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
   const [previewFile, setPreviewFile] = useState(
     require("./../static/images/contacts.png")
   );
+
+
   return (
     <div className="profilePageMainContainer">
       <div className="leftMenuContainer">
         <div className="userDetailsContainer">
-          <UserProfile userData={userData} />
+          <UserProfile userData={props.userData}/>
         </div>
-        <div className="leftMenu">
+          <div className="leftMenu">
           <div
             className="select active"
             onClick={(e) => {

@@ -19,7 +19,7 @@ function UserProfile(props) {
     <div className="userProfileMainContainer">
       <div className="imageContainer">
         {(() => {
-          if (props.userData.userImg) {
+          if (props.userData.userImg in props.userData) {
             return <img src={props.userData.userImg} alt="User Profile Pic" />;
           } else {
             return <h1 style={headerstyle}>{props.userData.username[0]}</h1>;
@@ -30,7 +30,7 @@ function UserProfile(props) {
         <p>
           <b>{props.userData.username}</b>
         </p>
-        <p>{props.userData.useremail}</p>
+        <p>{props.userData.Email}</p>
       </div>
     </div>
   );
