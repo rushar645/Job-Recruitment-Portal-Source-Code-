@@ -1,29 +1,17 @@
-import './App.css';
-import Navbar from './partials/navbar';
-import {ToastContainer} from "react-toastify";
-
+import "./App.css";
+import Navbar from "./partials/navbar";
+import { ToastContainer } from "react-toastify";
+// import { useEffect} from 'react';
+import { AuthProvider} from "./contexts/AuthContext";
+// import axios from "axios";
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <>
-      <Navbar />
-      <ToastContainer/>
+      <AuthProvider>
+        <Navbar />
+      </AuthProvider>
+      <ToastContainer />
     </>
   );
 }

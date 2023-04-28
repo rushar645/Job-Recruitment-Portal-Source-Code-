@@ -72,7 +72,7 @@ const testimonialData = [{
 function Home() {
     const [val, setVal] = useState('');
     const fetchData = async () => {
-        var { data } = await axios.get('http://127.0.0.1:5000/');
+        var { data } = await axios.get('/api/');
         setVal(data);
     }
     console.log(val);

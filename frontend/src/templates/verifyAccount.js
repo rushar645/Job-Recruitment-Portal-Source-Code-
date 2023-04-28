@@ -11,7 +11,7 @@ const VerifyAccount = () => {
   console.log(userid);
 
   const handleRes = async () => {
-    let res = await axios.get(`http://localhost:5000/verify/${userid.userid}`)
+    let res = await axios.get(`/apiverify/${userid.userid}`)
       .then((response) => { console.log(response); return response; })
       .catch((err) => { console.log(err) });
     console.log(res);

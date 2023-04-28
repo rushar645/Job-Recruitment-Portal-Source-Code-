@@ -25,6 +25,13 @@ a{
     padding: 0% 1%;
 }
 
+.listContainer-side:nth-last-child(1){
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .brandStyling{
     height: 12vh;
     display: flex;
@@ -44,6 +51,7 @@ a{
     width: 25vw;
     /* background-color: burlywood; */
 }
+
 
 .listContainer-center{
     height: 12vh;
