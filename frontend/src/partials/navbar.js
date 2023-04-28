@@ -16,7 +16,7 @@ import CreateJobPost from "./../templates/createJobPost";
 
 
 function Navbar() {
-  const { auth,setAuth, user } = useAuth();
+  const { auth, user } = useAuth();
 
   console.log("ACTIVE USER: ",user);
   return (
