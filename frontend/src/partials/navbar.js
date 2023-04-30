@@ -11,18 +11,21 @@ import ProfilePage from "./../templates/profilePage";
 import AuthLayout from "./../templates/authLayout";
 import { useAuth } from "../contexts/AuthContext";
 import CreateJobPost from "./../templates/createJobPost";
+import ViewJobPost from "../templates/viewJobPost";
+import PageNotFound from "../templates/pageNotFound";
+// import { useEffect, useRef } from "react";
 // import axios from "axios";
-// import { useEffect } from "react";
 
 
 function Navbar() {
-  const { auth, user } = useAuth();
+  const { auth,user} = useAuth();
 
-  console.log("ACTIVE USER: ",user);
+  console.log("NAVBAR: ",auth,user);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={auth?<AuthLayout userData={user}/>:<Layout />}>
+        <Route path="/" element={auth?<AuthLayout userData={user.userData}/>:<Layout />}>
           <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="blog" element={<Blog />} />
@@ -33,7 +36,11 @@ function Navbar() {
           <Route exact path="verifyAccount" />
           <Route path="verifyAccount/:userid" element={<VerifyAccount />} />
           <Route path="profile" element={<ProfilePage userData={user} />} />
-          <Route path="postJob" element={<CreateJobPost />}/>
+          <Route exact path="viewJob"/>
+          <Route path="viewJob/:id" element={<ViewJobPost />} />
+          {/* { auth && user.role==="employer" && <Route path="postJob" element={<CreateJobPost />}/>} */}
+          {auth && user.userData.role==="employer" ? <Route path="postJob" element={<CreateJobPost/>} />:""}
+          <Route path="*" element={<PageNotFound/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

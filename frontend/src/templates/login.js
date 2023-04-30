@@ -15,7 +15,7 @@ function LoginForm() {
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
-  const { setAuth } = useAuth();
+  const { setAuth,setUser,user,auth } = useAuth();
 
   const postData = async (formData) => {
     console.log(formData);
@@ -44,7 +44,10 @@ function LoginForm() {
       });
     }
     if (res === 210) {
+      let res= await axios.get("/api/getUserRoles").then((response)=>{return response}).catch((err)=>{console.log(err)});
+      setUser(res.data);
       setAuth(true);
+      console.log("LOGIN: ",auth,user);
       navigate("/", { replace: true });
     }
   };

@@ -2,8 +2,11 @@ import "./smallJobCard.css";
 
 const SmallJobCard = (props) => {
     // console.log(props.jobData);
+    // let img= require("./../../../../backend/uploads/companyLogos/careermeet.png");
+
+
     return (
-        <div className="smallJobCardMainContainer">
+        <div key={props.jobData._id} className="smallJobCardMainContainer">
             <div className="smallJobCardHeaders">
                 <div className="imageHeader"><img src={props.jobData.companyLogo} title={props.jobData.companyName} alt={props.jobData.companyName} /></div>
                 <div className="titleHeader">
@@ -13,8 +16,8 @@ const SmallJobCard = (props) => {
             </div>
             <div className="smallJobCardAttributes">
                 <li>Job Type: <strong> &nbsp;&nbsp;{props.jobData.jobType}</strong></li>
-                <li>Expeience: <strong> &nbsp;&nbsp;{props.jobData.experience} yrs</strong></li>
-                <li>Expected CTC: <strong> &nbsp;&nbsp;{props.jobData.expectedSalary} LPA</strong></li>
+                <li>Experience: <strong> &nbsp;&nbsp;{props.jobData.experience} yrs</strong></li>
+                <li>Expected CTC: <strong> &nbsp;&nbsp;{props.jobData.expectedCtc} LPA</strong></li>
             </div>
             <div className="smallJobCardDetails">
                 <p>{props.jobData.jobDescription}</p>

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./profilePage.css";
 import UserProfile from "../components/profilePic/userProfile";
 import Button from "@mui/material/Button";
+import { useAuth } from "../contexts/AuthContext";
+import axios from "axios";
+
 
 // const userData = {
 //   username: "Purushartha",
@@ -40,12 +43,27 @@ const ProfilePage = (props) => {
     require("./../static/images/contacts.png")
   );
 
+  const {setAuth}=useAuth();
+
+  const handleLogout=async()=>{
+    let res=await axios.get("/api/logout").then((response)=>{
+      return response;
+    }).catch((err)=>{
+      console.log(err);
+    })
+
+    if(res.status===216){
+      setAuth(false);
+    }
+  }
+
+  console.log("PROFILE PAGE: ", props.userData.userData);
 
   return (
     <div className="profilePageMainContainer">
       <div className="leftMenuContainer">
         <div className="userDetailsContainer">
-          <UserProfile userData={props.userData}/>
+          <UserProfile userData={props.userData.userData}/>
         </div>
           <div className="leftMenu">
           <div
@@ -100,7 +118,7 @@ const ProfilePage = (props) => {
           >
             Help & Support
           </div>
-          <Button variant="contained" sx={btnHoverSx}>
+          <Button variant="contained" sx={btnHoverSx} onClick={handleLogout}>
             Log out
           </Button>
         </div>

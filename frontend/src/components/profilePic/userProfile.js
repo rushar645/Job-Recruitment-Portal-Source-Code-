@@ -15,6 +15,7 @@ const headerstyle = {
 }
 
 function UserProfile(props) {
+  console.log("USERPROFILE: ",props.userData);
   return (
     <div className="userProfileMainContainer">
       <div className="imageContainer">
