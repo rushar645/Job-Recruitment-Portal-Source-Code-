@@ -28,10 +28,10 @@ const Layout = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/Search">Search</Link>
+              <Link to="/search">Search</Link>
             </li>
             <li>
-              <Link to="/Blog">Blog</Link>
+              <Link to="/blog">Blog</Link>
             </li>
           </ul>
         </nav>

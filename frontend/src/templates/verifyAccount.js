@@ -8,21 +8,18 @@ import axios from "axios";
 const VerifyAccount = () => {
   const userid = useParams();
   const [isVerified, setIsVerified] = useState(false);
-  console.log(userid);
-
-  const handleRes = async () => {
-    let res = await axios.get(`/apiverify/${userid.userid}`)
-      .then((response) => { console.log(response); return response; })
-      .catch((err) => { console.log(err) });
-    console.log(res);
-    if (res.status === 210) {
-      setIsVerified(true);
-    }
-  };
-
   useEffect(() => {
+    const handleRes = async () => {
+      let res = await axios.get(`/api/verify/${userid.userid}`)
+        .then((response) => { return response; })
+        .catch((err) => { console.log(err) });
+      console.log(res);
+      if (res.status === 214) {
+        setIsVerified(true);
+      }
+    };
     handleRes();
-  });
+  },[userid]);
 
   return (
     <div className="mainContainer">

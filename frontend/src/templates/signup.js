@@ -158,6 +158,7 @@ function Signup() {
         theme: "colored",
         className: "toast-message",
       });
+
     }
     if(res===213){
       toast.info("Email already in use.",{

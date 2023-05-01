@@ -1,0 +1,130 @@
+/* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+.viewJobMainContainer {
+  height: 100vh;
+  width: 100%;
+  /* background-color: aliceblue; */
+  display: flex;
+  flex-direction: row;
+}
+
+.leftJobSection {
+  height: 95%;
+  width: 65%;
+  /* background-color: green; */
+  margin: 2vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh;
+  gap: 3vh;
+}
+
+.rightCompanySection {
+  height: 95%;
+  width: 30%;
+  background-color: aliceblue;
+  margin: 2vh;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 40px;
+  padding: 4vh;
+}
+
+.jobTitle {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: aliceblue;
+  padding: 2%;
+  border: none;
+  border-radius: 40px;
+}
+
+.jobTitle > div {
+  margin: 2vh 0vh;
+  text-transform: capitalize;
+}
+
+.jobAttributes > p {
+  margin: 1.5vh 0vh;
+}
+
+.jobSkillsSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.skillContainer {
+  height: 5vh;
+  width: max-content;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 1vh;
+  margin: 1vh;
+  cursor: pointer;
+}
+
+.skillContainer:hover {
+  background-color: #1976d2;
+  color: white;
+  border: 1px solid transparent;
+}
+
+.jobDetails {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  background-color: aliceblue;
+  border: none;
+  border-radius: 40px;
+  padding: 2%;
+}
+
+.jobDetails > p {
+  line-height: 1.5;
+}
+
+.actionBtnGroup {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 2vh;
+}
+
+.companyHeaders {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.companyHeaders > img {
+  height: 70%;
+  width: auto;
+  aspect-ratio: 1/1;
+  border: 1px solid lightblue;
+  border-radius: 50%;
+}
+
+.companyDetails {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2vh;
+  gap: 2vh;
+}
+
+.companyDetails > p > a {
+    all: revert;
+}

@@ -8,35 +8,36 @@ import SmallJobCard from "./../components/jobCards/smallJobCard";
 import TestimonialCard from "./../components/testimonial/testimonialPortrait";
 import { useEffect, useState } from "react";
 import axios from 'axios';
-
+import { Link, useNavigate } from "react-router-dom";
+// import {URLSearchParamsInit} from 'react-router-dom';
 
 const selOption = [
-    { value: "Engineering", label: "Engineering" , clasName: " optionStyles"},
-    { value: "Computer-Science", label: "Computer Science" , className: "optionStyles"},
-    { value: "Management", label: "Management" , className: "optionStyles"},
-    { value: "Sales", label: "Sales" , className: "optionStyles"},
-    { value: "Education", label: "Education" , className: "optionStyles"},
-    { value: "Architecture", label: "Architecture" , className: "optionStyles"},
-    { value: "Maintainence", label: "Maintainence" , className: "optionStyles"},
-    { value: "Administration", label: "Administration" , className: "optionStyles"}
+    { value: "Engineering", label: "Engineering", clasName: " optionStyles" },
+    { value: "Computer-Science", label: "Computer Science", className: "optionStyles" },
+    { value: "Management", label: "Management", className: "optionStyles" },
+    { value: "Sales", label: "Sales", className: "optionStyles" },
+    { value: "Education", label: "Education", className: "optionStyles" },
+    { value: "Architecture", label: "Architecture", className: "optionStyles" },
+    { value: "Maintainence", label: "Maintainence", className: "optionStyles" },
+    { value: "Administration", label: "Administration", className: "optionStyles" }
 ]
 
 const searchBtnSx = {
     textTransform: "capitalize"
 }
 
-const selectMenuSx={
-    control: styles=> ({...styles,backgroundColor:"white"}),
-    option: (styles,{ data, isDisabled, isFocused, isSelected }) => {
+const selectMenuSx = {
+    control: styles => ({ ...styles, backgroundColor: "white" }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
         return {
-          ...styles,
-          backgroundColor: isSelected ? "#1976d2" : "white",
-          color: isSelected? "white":"black",
-          "&:hover":{
-            backgroundColor: "#B2D4FF"
-          }
+            ...styles,
+            backgroundColor: isSelected ? "#1976d2" : "white",
+            color: isSelected ? "white" : "black",
+            "&:hover": {
+                backgroundColor: "#B2D4FF"
+            }
         };
-      }
+    }
 };
 
 
@@ -45,11 +46,11 @@ const blogData = [{
     content: `A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
 
     Content on Instagram, Twitter, Twitch, TikTok and everywhere else online is prolific—it’s hard to stand out, even in a small group. That’s because the universal font each platform uses makes all content blend together.
-    
+
     With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.A wise Instagram bio once said, “The happiness of your life depends on the quality of your thoughts.” Well, sometimes you can find a little extra happiness when you dress those thoughts up with a cool font.
 
     Content on Instagram, Twitter, Twitch, TikTok and everywhere else online is prolific—it’s hard to stand out, even in a small group. That’s because the universal font each platform uses makes all content blend together.
-    
+
     With a font generator, doom scrollers will stop in their tracks simply because what you’ve written looks different and interesting—bonus points if it’s also worth reading.`
 }]
 
@@ -71,11 +72,22 @@ const testimonialData = [{
 
 function Home() {
     const [val, setVal] = useState('');
+    const [searchInput, setSearchInput] = useState('');
+    const [category, setCategory] = useState('');
+    const navigate = useNavigate();
+
     const fetchData = async () => {
         var { data } = await axios.get('/api/');
         setVal(data);
     }
     console.log(val);
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        let url = `/search?search=${searchInput}&category=${category.value}`;
+        console.log(url);
+        navigate(url);
+    }
 
     useEffect(() => {
         fetchData();
@@ -90,11 +102,11 @@ function Home() {
                         <h4 className="mainHomeSubHeading">Hundreds of jobs to choose from!</h4>
                     </div>
                     <div className="searchParamsBar">
-                        <form action="/search" method="POST" className="searchParamsForm">
-                            <input type="text" placeholder="Enter Job Title/Skills"/>
-                            <Select options={selOption} name="categories" styles={selectMenuSx}>
+                        <form className="searchParamsForm">
+                            <input type="text" value={searchInput} onChange={(e) => { setSearchInput(e.target.value) }} placeholder="Enter Job Title/Skills" />
+                            <Select options={selOption} value={category} onChange={setCategory} name="categories" styles={selectMenuSx}>
                             </Select>
-                            <Button variant="contained" sx={searchBtnSx}>
+                            <Button variant="contained" sx={searchBtnSx} onClick={handleSearch}>
                                 Search
                             </Button>
                         </form>
@@ -108,10 +120,15 @@ function Home() {
                         </h1>
                     </div>
                     <div className="jobCardsContainer">
+                        {val ? val.data.jobs.map((job) => (
+                            <Link key={job._id} to={`/viewJob/${job._id}`}>
+                                <SmallJobCard jobData={job} />
+                            </Link>
+                        )) : ""}
+                        {/* <SmallJobCard jobData={jobData[0]}/>
                         <SmallJobCard jobData={jobData[0]}/>
                         <SmallJobCard jobData={jobData[0]}/>
-                        <SmallJobCard jobData={jobData[0]}/>
-                        <SmallJobCard jobData={jobData[0]}/>
+                        <SmallJobCard jobData={jobData[0]}/> */}
                     </div>
                 </div>
                 <div className="companyRecommendationSection">

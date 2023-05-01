@@ -17,7 +17,7 @@ import UserProfile from "../components/profilePic/userProfile";
 //     useremail: "purushartha3011@gmail.com",
 //     userImg: require("./../static/images/contacts.png"),
 //   };
-  
+
 
 const AuthLayout = (props) => {
   return (
@@ -36,11 +36,12 @@ const AuthLayout = (props) => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/Search">Search</Link>
+              <Link to="/search">Search</Link>
             </li>
             <li>
-              <Link to="/Blog">Blog</Link>
+              <Link to="/blog">Blog</Link>
             </li>
+            {props.userData.role==="employer"?<li><Link to="/postJob">Post Job</Link></li>:""}
           </ul>
         </nav>
         <nav className="listContainer-side">
