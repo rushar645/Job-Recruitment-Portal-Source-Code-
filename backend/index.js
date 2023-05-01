@@ -198,6 +198,15 @@ app.post("/api/signup", async (req, res) => {
 
 app.post("/api/search", (req, res) => { });
 
+app.post("/api/viewJob/:id",async(req,res)=>{
+  let id=req.params.id;
+  let foundJob=await jobServices.findJob(id);
+  foundJob=foundJob[0];
+  console.log(foundJob);
+  res.statusMessage="Req recieved";
+  res.status(223).json({jobData:foundJob});
+})
+
 app.post("/api/postJob",upload.single('companyLogo'),async(req,res)=>{
   let jobData =JSON.parse(JSON.stringify(req.body));
   jobData.companyLogo="./../../."+req.file.destination+req.file.filename;
