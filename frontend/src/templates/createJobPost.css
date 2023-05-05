@@ -1,12 +1,13 @@
 .mainOuterContainer{
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    background-color: rgb(216, 207, 195);
+    /* padding: 5vh 0vh; */
+    background-color: aliceblue;
 }
 
 .mainInnerContainer{
     height: 100%;
-    background-color: rgb(253, 204, 143);
+    /* background-color: rgb(253, 204, 143); */
     width: auto;
     display: flex;
     flex-direction: column;
@@ -17,7 +18,8 @@
 .formHeaderContainer{
     height: 10%;
     width: 100%;
-    background-color: rgb(196, 162, 122);
+    margin: 3vh 0vh;
+    /* background-color: rgb(196, 162, 122); */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -27,11 +29,12 @@
 .formFieldsContainer{
     height: 90%;
     width: 100%;
-    background-color: rgb(150, 134, 114);
+    /* background-color: rgb(150, 134, 114); */
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin: 2vh 0vh;
 }
 
 .formFieldsContainer>form{
@@ -88,5 +91,5 @@
     padding: 2%;
     margin: 2vh 1vh;
     font-size: large;
-    outline: none;    
+    outline: none;
 }

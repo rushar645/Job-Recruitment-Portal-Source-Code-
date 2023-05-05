@@ -132,8 +132,8 @@ function Search() {
                 <div className="mainSearchResultsContainer">
                     <div className="resultJobCardsContainer">
                         {globalJobData.length > 0 ? globalJobData.map((data) => (
-                            <Link to={`/viewJob/${data._id}`} >
-                                <MainJobCard jobData={data} />
+                            <Link key={data._id} to={`/viewJob/${data._id}`} >
+                                <MainJobCard key={data._id} jobData={data} />
                             </Link>
                         )) : ""}
                         {/* <MainJobCard jobData={jobData[0]} />

@@ -72,6 +72,7 @@ const testimonialData = [{
 
 function Home() {
     const [val, setVal] = useState('');
+    const [blogs, setBlogs] = useState('');
     const [searchInput, setSearchInput] = useState('');
     const [category, setCategory] = useState('');
     const navigate = useNavigate();
@@ -79,8 +80,9 @@ function Home() {
     const fetchData = async () => {
         var { data } = await axios.get('/api/');
         setVal(data);
+        setBlogs(data.data.blogs)
     }
-    console.log(val);
+    console.log("VAL: ",val,blogs);
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -151,8 +153,8 @@ function Home() {
                         <h1>Tips from our Members</h1>
                     </div>
                     <div className="blogCardsContainer">
-                        <BlogSmallCard blogdata={blogData[0]} />
-                        <BlogSmallCard blogdata={blogData[0]} />
+                        {blogs? <BlogSmallCard blogdata={blogs[0]} />:""}
+                        {blogs?<BlogSmallCard blogdata={blogs[1]} />:""}
                     </div>
                 </div>
                 <div className="testimonialsSection">

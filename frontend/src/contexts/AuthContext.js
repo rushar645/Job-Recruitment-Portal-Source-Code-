@@ -1,21 +1,20 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 const AuthContext = createContext({
   auth: null,
-  setAuth: () => { },
+  setAuth: () => {},
   user: null,
-  setUser: () => { },
+  setUser: () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    console.log(auth,user);
     // const isAuth = async () => {
     //   try {
     //     const res=await axios.get(
@@ -30,7 +29,12 @@ const AuthProvider = ({ children }) => {
     // };
 
     // isAuth();
-  }, [auth,user]);
+    let currAuth=sessionStorage.getItem("auth");
+    let currUser=JSON.parse(sessionStorage.getItem("user"));
+    setAuth(currAuth);
+    setUser(currUser);
+  }, [auth]);
+  // console.log(auth,user);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, user, setUser }}>

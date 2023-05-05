@@ -81,6 +81,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: aliceblue;
+    padding: 3%;
 }
 
 .imageBox{
@@ -129,7 +131,7 @@
 .profileForm>*>h1{
     height: 7vh;
     width: 100%;
-    padding: 0% 2%;
+    padding: 0% 4%;
     margin: 3% 0%;
     /* border-bottom: 2px solid black; */
 }
@@ -160,10 +162,133 @@
     color: transparent;
 }
 
+#accountContent{
+    height: 88vh;
+    width: 100%;
+    /* background-color: aliceblue; */
+}
+
+.accountSettings{
+    padding: 3%;
+    height: 50vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.accountSettings>h1{
+    margin: 0% 3%;
+}
+
+.accountSettings>form{
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.accountSettings>form>input{
+    height: 5vh;
+    width: 50%;
+    outline: none;
+    border: 1px solid lightgray;
+    font-size: 1.05rem;
+    padding: 2%;
+    border-radius: 5px;
+    margin: 0% 5%;
+}
+
+.accountSettings>form>label{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin: 0% 5%;
+}
+
+.accountSettings>form>label>input{
+    height: 3vh;
+    aspect-ratio: 1/1;
+    outline: none;
+    border: 1px solid lightgray;
+    font-size: 1.05rem;
+    padding: 2%;
+    border-radius: 5px;
+}
+
 .btnContainer{
     height: 10vh;
     width: 100%;
     padding: 0% 5%;
+}
+
+#historyContent{
+    min-height: 88vh;
+    height: auto;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+.postedJobs{
+    min-height: 88vh;
+    height: auto;
+    width: 100%;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.postedJobsMainContainer{
+    height: 100%;
+    width: 98%;
+    border: 1px solid lightblue;
+    overflow-y: auto;
+}
+
+.postedJobsMainContainer::-webkit-scrollbar{
+    width: 5px;
+}
+
+.postedJobsMainContainer::-webkit-scrollbar-thumb{
+    background-color: darkgray;
+}
+
+.jobHistoryContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.appliedJobsContainer{
+    height: auto;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jobWithDetails{
+    min-height: 55vh;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.applicantsContainer{
+    height: auto;
+    width: 98%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.applicantsContainer>ol>li>p>span>a{
+    all: revert;
 }
 
 .select{

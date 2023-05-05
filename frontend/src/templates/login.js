@@ -46,7 +46,10 @@ function LoginForm() {
     if (res === 210) {
       let res= await axios.get("/api/getUserRoles").then((response)=>{return response}).catch((err)=>{console.log(err)});
       setUser(res.data);
+      sessionStorage.setItem("user",JSON.stringify(res.data));
       setAuth(true);
+      sessionStorage.setItem("auth",true);
+
       console.log("LOGIN: ",auth,user);
       navigate("/", { replace: true });
     }

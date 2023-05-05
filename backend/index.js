@@ -2,12 +2,15 @@ const express = require("express");
 const port = 5000;
 const cors = require("cors");
 const session = require("cookie-session");
-const multer=require("multer");
+const multer = require("multer");
+const fs = require('fs');
+const path = require('path');
 // const cookieParser = require("cookie-parser");
 const mongodb = require("./database/init");
 const mailing = require("./services/mailing");
 const userServices = require("./services/userService");
 const jobServices = require("./services/jobServices");
+const blogServices = require("./services/blogServices");
 const hashServices = require("./services/hashServices");
 
 const getAuth = require("./middlewares/getAuth");
@@ -15,27 +18,6 @@ const getAuth = require("./middlewares/getAuth");
 
 const app = express();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    if (file.fieldname === 'companyLogo') {
-      cb(null, './backend/uploads/companyLogos/')
-    }
-  },
-  filename: (req, file, cb) => {
-    if (file.fieldname === 'companyLogo') {
-      let fileExtens = file.originalname.split('.')[file.originalname.split('.').length - 1];
-      let currFilename = req.body.companyName.replaceAll(' ', '_').toLowerCase() + "." + fileExtens;
-      cb(null, currFilename);
-    }
-  }
-});
-
-const upload=multer({storage:storage});
-
-app.use(express.static("./uploads"));
-
-
-app.use(cors());
 app.use(
   session({
     name: "session",
@@ -43,6 +25,41 @@ app.use(
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
   })
 );
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (file.fieldname === 'companyLogo') {
+      cb(null, './backend/uploads/companyLogos/')
+    } else if (file.fieldname === 'blogImg') {
+      cb(null, './backend/uploads/blogImages/')
+    } else if (file.fieldname === 'profileImg') {
+      cb(null, './backend/uploads/profileImages/')
+    }
+  },
+  filename: (req, file, cb) => {
+    if (file.fieldname === 'companyLogo') {
+      let fileExtens = file.originalname.split('.')[file.originalname.split('.').length - 1];
+      let currFilename = req.body.companyName.replaceAll(' ', '_').toLowerCase() + "." + fileExtens;
+      cb(null, currFilename);
+    } else if (file.fieldname === 'blogImg') {
+      let fileExtens = file.originalname.split('.')[file.originalname.split('.').length - 1];
+      let currFilename = req.body.blogTitle.replaceAll(' ', '_').toLowerCase() + "." + fileExtens;
+      cb(null, currFilename);
+    } else if (file.fieldname === 'profileImg') {
+      let fileExtens = file.originalname.split('.')[file.originalname.split('.').length - 1];
+      let currFilename = req.session.username.replaceAll(' ', '_').toLowerCase() + "." + fileExtens;
+      cb(null, currFilename);
+    }
+  }
+});
+
+const upload = multer({ storage: storage });
+
+app.use(express.static("./uploads/"));
+
+
+app.use(cors());
+
 app.use((req, res, next) => {
   console.log(req.method, " ", req.url);
   next();
@@ -50,19 +67,23 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/api/", async(req, res) => {
-  let allJobs=await jobServices.findAllJobs();
-  let allCompanies=[];
-  allJobs.forEach((job)=>{
-    allCompanies.push({companyName:job.companyName,companyLogo:job.companyLogo});
+
+app.get("/api/", async (req, res) => {
+  let allJobs = await jobServices.findAllJobs();
+  let allCompanies = [];
+  allJobs.forEach((job) => {
+    allCompanies.push({ companyName: job.companyName, companyLogo: job.companyLogo });
   });
-  // let allBlogs=await blogServices.findAllBlogs();
-  let homeObj={
-    "jobs":allJobs.length<=4?allJobs:[allJobs[0],allJobs[1],allJobs[2],allJobs[3]],
-    "companies": allCompanies.length<=6? allCompanies: [allCompanies[0],allCompanies[1],allCompanies[2],allCompanies[3],allCompanies[4],allCompanies[5]]
+
+  let allBlogs = await blogServices.findAllBlogs();
+  let homeObj = {
+    "jobs": allJobs.length <= 3 ? allJobs : [allJobs[0], allJobs[1], allJobs[2]],
+    "companies": allCompanies.length <= 6 ? allCompanies : [allCompanies[0], allCompanies[1], allCompanies[2], allCompanies[3], allCompanies[4], allCompanies[5]],
+
+    "blogs": allBlogs.length <= 2 ? allBlogs : [allBlogs[0], allBlogs[1]]
   }
-  res.statusMessage="Welcome!";
-  res.status(222).json({data:homeObj});
+  res.statusMessage = "Welcome!";
+  res.status(222).json({ data: homeObj });
 });
 
 app.get("/api/getUserRoles", async (req, res) => {
@@ -80,7 +101,7 @@ app.get("/api/getUserRoles", async (req, res) => {
   }
 });
 
-app.get("/api/verify/:username", async(req, res) => {
+app.get("/api/verify/:username", async (req, res) => {
   let uname = req.params.username;
   console.log(uname);
   var foundData = await userServices.findUserByName(uname);
@@ -92,29 +113,75 @@ app.get("/api/verify/:username", async(req, res) => {
   res.status(214).end();
 });
 
-app.get("/api/search",async(req,res)=>{
-    console.log(req.query);
-    let search=req.query.search;
-    let category=req.query.category;
-    let allJobs=await jobServices.findAllJobs();
-    let foundJobs=[];
-    allJobs.forEach((job)=>{
-      let allSkills=job.skillsRequired.map(skill=>skill=skill.toLowerCase());
-      if(job.jobTitle.toLowerCase()===search.toLowerCase() || job.category.toLowerCase()===category.toLowerCase() || allSkills.includes(search.toLowerCase())){
-        foundJobs.push(job);
-      }
-    })
-    res.statusMessage = "Search Completed!";
-    res.status(221).json({ jobs: foundJobs });
+app.get("/api/search", async (req, res) => {
+  console.log(req.query);
+  let search = req.query.search;
+  let category = req.query.category;
+  let allJobs = await jobServices.findAllJobs();
+  let foundJobs = [];
+  allJobs.forEach((job) => {
+    let allSkills = job.skillsRequired.map(skill => skill = skill.toLowerCase());
+    if (job.jobTitle.toLowerCase() === search.toLowerCase() || job.category.toLowerCase() === category.toLowerCase() || allSkills.includes(search.toLowerCase())) {
+      foundJobs.push(job);
+    }
+  })
+  res.statusMessage = "Search Completed!";
+  res.status(221).json({ jobs: foundJobs });
 });
+
+app.get("/api/blog", async (req, res) => {
+  let allBlogData = await blogServices.findAllBlogs();
+
+  res.statusMessage = "Blogs found";
+  res.status(224).json({ blogData: allBlogData });
+})
 
 app.get("/api/login", (req, res) => { });
 
 app.get("/api/signup", () => { });
 
-app.get("/api/logout",(req,res)=>{
-  req.session=null;
-  res.statusMessage="Logout Successful";
+app.get("/api/profilePage", async (req, res) => {
+
+  let currUser = req.session.username;
+
+  let allJobs = await jobServices.findAllJobs();
+
+  let postedJobs = [];
+
+  if (req.session.role === "employer") {
+    postedJobs = allJobs.filter((item) => {
+      return item.recruiter === currUser
+    })
+  }
+  let appliedJobs = allJobs.filter((item) => {
+    let presence = false;
+    item.applicants.forEach((appli) => {
+      if (appli.username === currUser) {
+        presence = true;
+      }
+    })
+    if (presence === true) {
+      return item
+    }
+  })
+
+  // console.log(postedJobs,apppliedJobs);
+  res.statusMessage = "Data Found";
+  res.status(229).json({ postedJobs: postedJobs, appliedJobs: appliedJobs })
+
+})
+
+app.get("/api/getUser/:id", async (req, res) => {
+  let user = await userServices.findUserById(req.params.id);
+  user = user[0];
+  res.statusMessage = "User Found!"
+  res.status(230).json(user);
+})
+
+
+app.get("/api/logout", (req, res) => {
+  req.session = null;
+  res.statusMessage = "Logout Successful";
   res.status(217).send();
 })
 
@@ -198,25 +265,182 @@ app.post("/api/signup", async (req, res) => {
 
 app.post("/api/search", (req, res) => { });
 
-app.post("/api/viewJob/:id",async(req,res)=>{
-  let id=req.params.id;
-  let foundJob=await jobServices.findJob(id);
-  foundJob=foundJob[0];
-  console.log(foundJob);
-  res.statusMessage="Req recieved";
-  res.status(223).json({jobData:foundJob});
+app.post("/api/personalInfo", upload.single('profileImg'), async (req, res) => {
+  let id = req.session.username;
+  let data = req.body;
+  console.log(id, data, req.file);
+  if (req.file) {
+    data.profileImg = {
+      data: fs.readFileSync(path.join(__dirname + '/uploads/profileImages/' + req.file.filename)),
+      contentType: 'image/png'
+    };
+  }
+
+  let foundUser = await userServices.findUserByName(id);
+  foundUser = foundUser[0];
+
+  // console.log(foundUser);
+
+  let updatedUser = await userServices.updateDataByName(id, data);
+  // console.log("this: ",updatedUser);
+  res.statusMessage = "Update Successful";
+  res.status(228).send();
+
 })
 
-app.post("/api/postJob",upload.single('companyLogo'),async(req,res)=>{
-  let jobData =JSON.parse(JSON.stringify(req.body));
-  jobData.companyLogo="./../../."+req.file.destination+req.file.filename;
-  jobData.skillsRequired=jobData.skillsRequired.split(',');
-  jobData.recruiter=req.session.username;
+app.post("/api/preferences", async (req, res) => {
+  let id = req.session.username;
+  let data = req.body;
+  console.log(id, data);
+  let foundUser = await userServices.findUserByName(id);
+  foundUser = foundUser[0];
+
+  // console.log(foundUser);
+
+  let updatedUser = await userServices.updateDataByName(id, data);
+  // console.log("this: ",updatedUser);
+  res.statusMessage = "Update Successful";
+  res.status(228).send();
+})
+
+app.post("/api/projects", async (req, res) => {
+  let id = req.session.username;
+  let data = req.body;
+  console.log(id, data);
+  let foundUser = await userServices.findUserByName(id);
+  foundUser = foundUser[0];
+  if (!foundUser.projects || foundUser.projects.length === 0) {
+    foundUser.projects = [];
+  }
+
+  foundUser.projects = foundUser.projects.push(data);
+
+  let updatedUser = await userServices.updateDataByName(id, foundUser);
+  // console.log("this: ",updatedUser);
+  res.statusMessage = "Update Successful";
+  res.status(228).send();
+})
+
+app.post("/api/experience", async (req, res) => {
+  let id = req.session.username;
+  let data = req.body;
+  console.log(id, data);
+  let foundUser = await userServices.findUserByName(id);
+  foundUser = foundUser[0];
+  if (!foundUser.experience || foundUser.experience.length === 0) {
+    foundUser.experience = [];
+  }
+
+  foundUser.experience = foundUser.experience.push(data);
+
+  let updatedUser = await userServices.updateDataByName(id, foundUser);
+  // console.log("this: ",updatedUser);
+  res.statusMessage = "Update Successful";
+  res.status(228).send();
+})
+
+app.post("/api/education", async (req, res) => {
+  let id = req.session.username;
+  let data = req.body;
+  console.log(id, data);
+  let foundUser = await userServices.findUserByName(id);
+  foundUser = foundUser[0];
+  if (!foundUser.education || foundUser.education.length === 0) {
+    foundUser.education = [];
+  }
+
+  foundUser.education = foundUser.education.push(data);
+
+  let updatedUser = await userServices.updateDataByName(id, foundUser);
+  // console.log("this: ",updatedUser);
+  res.statusMessage = "Update Successful";
+  res.status(228).send();
+})
+
+app.post("/api/applyJob/:id", async (req, res) => {
+  let id = req.params.id;
+  let data = req.body.userID;
+  console.log(id, data);
+  let foundJob = await jobServices.findJob(id);
+  foundJob = foundJob[0];
+  let applicantData = {
+    username: req.session.username,
+    profile: `http://localhost:3000/viewProfile/${data}`
+  }
+  let presence = false;
+  foundJob.applicants.forEach((item) => {
+    if (item.username === applicantData.username) {
+      presence = true;
+    }
+  })
+  if (presence === false) {
+    foundJob.applicants = foundJob.applicants.push(applicantData);
+    console.log("Applied Job: ", foundJob)
+    let updatedJob = await jobServices.updateData(id, foundJob);
+    res.statusMessage = "Applied Successfully";
+    res.status(227).send();
+  }
+  else {
+    res.statusMessage = "Already Applied";
+    res.status(228).send();
+  }
+
+})
+
+app.get("/api/viewJob/:id", async (req, res) => {
+  let id = req.params.id;
+  console.log(id);
+  let foundJob = await jobServices.findJob(id);
+  foundJob = foundJob[0];
+  console.log(foundJob);
+  res.statusMessage = "Req recieved";
+  res.status(223).json({ jobData: foundJob });
+})
+
+app.get("/api/viewBlog/:id", async (req, res) => {
+  let blogid = req.params.id;
+
+  console.log(blogid)
+  let foundBlog = await blogServices.findBlog(blogid);
+  foundBlog = foundBlog[0];
+  console.log(foundBlog);
+
+  res.statusMessage = "Blog data sent";
+  res.status(225).json({ blog: foundBlog });
+
+})
+
+app.post("/api/blog/createBlog", upload.single('blogImg'), async (req, res) => {
+  let blog = JSON.parse(JSON.stringify(req.body));
+
+  blog.blogImg = {
+    data: fs.readFileSync(path.join(__dirname + '/uploads/blogImages/' + req.file.filename)),
+    contentType: 'image/png'
+  };
+
+  blog.username = req.session.username;
+
+  console.log(blog);
+
+  let newBlog = await blogServices.createNewBlog(blog);
+  res.statusMessage = "Blog Added!";
+  res.status(224).end();
+
+})
+
+app.post("/api/postJob", upload.single('companyLogo'), async (req, res) => {
+  let jobData = JSON.parse(JSON.stringify(req.body));
+  jobData.companyLogo = {
+    data: fs.readFileSync(path.join(__dirname + '/uploads/companyLogos/' + req.file.filename)),
+    contentType: 'image/png'
+  };
+  jobData.skillsRequired = jobData.skillsRequired.split(',');
+  jobData.recruiter = req.session.username;
   console.log(jobData);
 
-  let createJob=await jobServices.createNewJob(jobData);
+  let createJob = await jobServices.createNewJob(jobData);
 
-  res.statusMessage="Job Created";
+  res.statusMessage = "Job Created";
   res.status(220).send();
 })
 

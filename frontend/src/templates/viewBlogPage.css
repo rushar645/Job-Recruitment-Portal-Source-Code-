@@ -1,0 +1,43 @@
+.viewBlogMainContainer{
+    min-height: 88vh;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.blogContainer{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.blogTitleContainer{
+    height: 15vh;
+    width: 100%;
+    border: 1px solid aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.blogTitleContainer>p{
+    display: flex;
+    flex-direction: row;
+}
+
+.blogImgContainer{
+    height: 50vh;
+    width: 100%;
+    border: 1px solid aliceblue;
+}
+
+.blogContentContainer{
+    height: auto;
+    width: 100%;
+    border: 1px solid aliceblue;
+}
