@@ -209,7 +209,7 @@ function CreateJobPost() {
                 value={contact}
                 onChange={(event) => setContact(event.target.value)}
                 name="companyEmail"
-                placeholder="Benefits"
+                placeholder="Contact Email"
                 required
               />
             </label>

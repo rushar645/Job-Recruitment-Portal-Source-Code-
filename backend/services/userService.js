@@ -14,6 +14,10 @@ module.exports.findUserByName=function(name){
   return userModel.find({username:name})
 }
 
+module.exports.findUserById=function(id){
+  return userModel.find({_id:id})
+}
+
 module.exports.updateData=async(email,userData)=>{
   let createUser=await userModel.updateOne({Email:email},userData,{upsert:true});
 }

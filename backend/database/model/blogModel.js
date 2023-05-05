@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 
 const blogSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  personalBlogs: [
-    {
-      blogtitle: { type: String, required: true, unique: true },
-      blogcontent: { type: String, required: true, unique: true },
-      blogImage: { type: String, required: true, unique: true },
-    },
-  ],
+  username: { type: String, required: true},
+  blogTitle: { type: String, required: true },
+  blogContent: { type: String, required: true },
+  blogImg: {
+    data: Buffer,
+    contentType: String
+  }
 });
 
 const blogModel = mongoose.model("blogList", blogSchema);

@@ -1,23 +1,27 @@
 import "./blogSmallCard.css";
-import img from "./../../static/images/trial.png";
+import { Buffer } from "buffer";
 
-const smallCardImgContainer={
-    backgroundImage: `url(${img})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "norepeat"
-}
 
 function blogSmallCard(props) {
+
+    console.log(props);
+
+    const smallCardImgContainer={
+        background: `url(data:image/png;base64,${Buffer.from(props.blogdata.blogImg.data,'binary').toString('base64')})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "norepeat"
+    }
+
     return (
         <div className="smallCardContainer">
             <div className="smallCardImgContainer" style={smallCardImgContainer}>
             </div>
             <div className="smallCardContentContainer">
                 <div className="smallCardContentHeader">
-                    <h4>{props.blogdata.title}</h4>
+                    <h4>{props.blogdata.blogTitle}</h4>
                 </div>
-                <p>{props.blogdata.content}</p>
+                <p>{props.blogdata.blogContent}</p>
             </div>
         </div>
     );
