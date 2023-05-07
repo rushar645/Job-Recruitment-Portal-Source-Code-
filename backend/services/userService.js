@@ -25,3 +25,7 @@ module.exports.updateData=async(email,userData)=>{
 module.exports.updateDataByName=async(name,userData)=>{
   let createUser=await userModel.updateOne({username:name},userData,{upsert:true});
 }
+
+module.exports.updateDataById=async(id,userData)=>{
+  let createUser=await userModel.updateOne({_id:id},userData,{upsert:true});
+}

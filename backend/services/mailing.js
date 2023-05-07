@@ -10,6 +10,23 @@ var transporter = nodemailer.createTransport({
   },
 });
 
+module.exports.sendPasswordResetLink=(sendTo,userid)=>{
+  var mailOptions = {
+    from: "careermeet.helpdesk@gmail.com",
+    to: sendTo,
+    subject: "Change your password",
+    html: `Please use the link below to change password.
+            <a href="http://127.0.0.1:3000/changePassword/${userid}">Click to change password</a>`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+};
 module.exports.sendWelcomeMail = (sendTo, username) => {
   var mailOptions = {
     from: "careermeet.helpdesk@gmail.com",

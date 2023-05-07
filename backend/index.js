@@ -78,7 +78,7 @@ app.get("/api/", async (req, res) => {
   let allBlogs = await blogServices.findAllBlogs();
   let homeObj = {
     "jobs": allJobs.length <= 3 ? allJobs : [allJobs[0], allJobs[1], allJobs[2]],
-    "companies": allCompanies.length <= 6 ? allCompanies : [allCompanies[0], allCompanies[1], allCompanies[2], allCompanies[3], allCompanies[4], allCompanies[5]],
+    "companies": allCompanies.length <= 5 ? allCompanies : [allCompanies[0], allCompanies[1], allCompanies[2], allCompanies[3], allCompanies[4]],
 
     "blogs": allBlogs.length <= 2 ? allBlogs : [allBlogs[0], allBlogs[1]]
   }
@@ -125,6 +125,9 @@ app.get("/api/search", async (req, res) => {
       foundJobs.push(job);
     }
   })
+  if (search === 'null' && category === 'null') {
+    foundJobs = allJobs;
+  }
   res.statusMessage = "Search Completed!";
   res.status(221).json({ jobs: foundJobs });
 });
@@ -267,7 +270,7 @@ app.post("/api/search", (req, res) => { });
 
 app.post("/api/personalInfo", upload.single('profileImg'), async (req, res) => {
   let id = req.session.username;
-  let data = req.body;
+  let data = JSON.parse(JSON.stringify(req.body));
   console.log(id, data, req.file);
   if (req.file) {
     data.profileImg = {
@@ -290,7 +293,7 @@ app.post("/api/personalInfo", upload.single('profileImg'), async (req, res) => {
 
 app.post("/api/preferences", async (req, res) => {
   let id = req.session.username;
-  let data = req.body;
+  let data = JSON.parse(JSON.stringify(req.body));
   console.log(id, data);
   let foundUser = await userServices.findUserByName(id);
   foundUser = foundUser[0];
@@ -305,7 +308,7 @@ app.post("/api/preferences", async (req, res) => {
 
 app.post("/api/projects", async (req, res) => {
   let id = req.session.username;
-  let data = req.body;
+  let data = JSON.parse(JSON.stringify);
   console.log(id, data);
   let foundUser = await userServices.findUserByName(id);
   foundUser = foundUser[0];
@@ -323,7 +326,7 @@ app.post("/api/projects", async (req, res) => {
 
 app.post("/api/experience", async (req, res) => {
   let id = req.session.username;
-  let data = req.body;
+  let data = JSON.parse(JSON.stringify(req.body));
   console.log(id, data);
   let foundUser = await userServices.findUserByName(id);
   foundUser = foundUser[0];
@@ -341,7 +344,7 @@ app.post("/api/experience", async (req, res) => {
 
 app.post("/api/education", async (req, res) => {
   let id = req.session.username;
-  let data = req.body;
+  let data = JSON.parse(JSON.stringify(req.body));
   console.log(id, data);
   let foundUser = await userServices.findUserByName(id);
   foundUser = foundUser[0];
@@ -356,6 +359,48 @@ app.post("/api/education", async (req, res) => {
   res.statusMessage = "Update Successful";
   res.status(228).send();
 })
+
+app.post("/api/profile/removeItem", async (req, res) => {
+  let dataId = req.body.id;
+  let container = req.body.parent;
+  let foundUser = await userServices.findUserByName(req.session.username);
+  foundUser = foundUser[0];
+
+  // console.log(foundUser);
+  let updatedData = [];
+
+  if (container === "education") {
+    updatedData = foundUser.education.filter((item) => { if (item.id !== dataId) { return item } })
+    foundUser.education = updatedData;
+  } else if (container === "experience") {
+    updatedData = foundUser.experience.filter((item) => { if (item.id !== dataId) { return item } })
+    foundUser.experience = updatedData;
+  } else if (container === "projects") {
+    updatedData = foundUser.projects.filter((item) => { if (item.id !== dataId) { return item } })
+    foundUser.projects = updatedData;
+  }
+
+  console.log(foundUser);
+
+  let updateUser = await userServices.updateDataByName(req.session.username, foundUser);
+
+  res.statusMessage = "Data Recieved";
+  res.status(231).send();
+})
+
+app.post("/api/removeJob", async (req, res) => {
+  let jobId = req.body.id;
+
+  console.log(jobId);
+
+  let removedJob = await jobServices.removeById(jobId);
+
+  console.log(removedJob);
+
+  res.statusMessage = "Job Removed";
+  res.status(232).send();
+
+});
 
 app.post("/api/applyJob/:id", async (req, res) => {
   let id = req.params.id;
@@ -447,7 +492,64 @@ app.post("/api/postJob", upload.single('companyLogo'), async (req, res) => {
 
 app.post("/api/blog", (req, res) => { });
 
-app.post("/api/forgotpassword", (req, res) => { });
+app.post("/api/forgotpassword", async (req, res) => {
+  let email = req.body.email;
+  let foundUser = await userServices.findUser(email);
+  if (foundUser.length === 0) {
+    res.statusMessage = "Email not found.";
+    res.send(236).send();
+  } else {
+
+    foundUser = foundUser[0];
+
+    console.log(foundUser, email);
+
+    let mail = await mailing.sendPasswordResetLink(email, foundUser.id);
+
+    res.statusMessage = "Email Sent!";
+    res.send(234).send();
+
+  }
+});
+
+app.post("/api/resetPassword/:id", async (req, res) => {
+
+  let pwd = JSON.parse(JSON.stringify(req.body.password));
+  let id = req.params.id;
+  let foundUser = await userServices.findUserById(id);
+
+  foundUser = foundUser[0];
+
+  const hashedPassword = await hashServices.hashPassword(pwd);
+
+  foundUser.password = hashedPassword;
+
+  let updatedUser = await userServices.updateDataById(id, foundUser);
+
+  res.statusMessage = "Password Changed";
+  res.status(235).send();
+})
+
+app.post("/api/changePassword", async (req, res) => {
+  let pwd = JSON.parse(JSON.stringify(req.body.password));
+
+  let foundUser = await userServices.findUserByName(req.session.username);
+
+  foundUser = foundUser[0];
+  console.log(foundUser);
+
+  const hashedPassword = await hashServices.hashPassword(pwd);
+
+  foundUser.password = hashedPassword;
+
+  console.log(foundUser);
+
+  let updatedUser = await userServices.updateDataByName(req.session.username, foundUser);
+
+  res.statusMessage = "Password Changed";
+  res.status(233).send();
+})
+
 
 app.post("/api/profile", (req, res) => { });
 

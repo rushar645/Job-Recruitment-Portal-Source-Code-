@@ -16,7 +16,8 @@ import PageNotFound from "../templates/pageNotFound";
 import CreateBlog from "../templates/createBlog";
 import ViewBlogPage from "../templates/viewBlogPage";
 import ViewProfilePage from "../templates/viewProfilePage";
-
+import PreviewProfile from "../templates/previewProfile";
+import ChangePassword from "../templates/changePassword";
 function Navbar() {
   const { auth,user} = useAuth();
 
@@ -36,7 +37,10 @@ function Navbar() {
           <Route path="forgotpassword" element={<ForgotPassword />} />
           <Route exact path="verifyAccount" />
           <Route path="verifyAccount/:userid" element={<VerifyAccount />} />
-          {auth?<Route path="profile" element={<ProfilePage userData={JSON.parse(sessionStorage.getItem("user"))} />} /> : ""}
+          <Route exact path="changePassword" />
+          <Route path="changePassword/:userid" element={<ChangePassword />} />
+          {auth?<Route exact path="profile" element={<ProfilePage userData={JSON.parse(sessionStorage.getItem("user"))} />} /> : ""}
+          {auth?<Route path="profile/preview" element={<PreviewProfile userData={JSON.parse(sessionStorage.getItem("user"))} />} /> : ""}
           <Route exact path="viewJob"/>
           <Route path="viewJob/:id" element={<ViewJobPost />} />
           <Route exact path="viewProfile"/>

@@ -202,7 +202,7 @@ function Signup() {
           Candidate
         </div>
         <div id="Employee" className="" onClick={handleTabClick}>
-          Guest
+          Employer
         </div>
       </div>
       <div className="signupCandidateSectionContainer">

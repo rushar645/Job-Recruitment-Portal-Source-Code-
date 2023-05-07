@@ -1,0 +1,28 @@
+.deleteBtn{
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.deleteBtn:active{
+    transform: scale(0.85);
+}
+
+.deleteBtn>svg{
+    height: 4vh;
+    width: auto;
+}
+
+.listItem{
+    min-height: 12vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.listItem>div:nth-child(1){
+    width: 80%;
+}
