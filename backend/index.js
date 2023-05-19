@@ -437,7 +437,7 @@ app.get("/api/viewJob/:id", async (req, res) => {
   console.log(id);
   let foundJob = await jobServices.findJob(id);
   foundJob = foundJob[0];
-  console.log(foundJob);
+  console.log(foundJob.jobTitle);
   res.statusMessage = "Req recieved";
   res.status(223).json({ jobData: foundJob });
 })

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import "./viewJobPost.css";
-import {Link,useParams} from "react-router-dom";
+import {Link,useParams, useNavigate} from "react-router-dom";
 import {useEffect,useState} from "react";
 import axios from 'axios';
 import { Buffer } from "buffer";
@@ -18,6 +18,7 @@ const ViewJobPost = () => {
   const [jobSkills,setJobSkills]=useState([]);
   const [companyLogo,setCompanyLogo]=useState();
 
+  const navigate=useNavigate();
 
 
   const hoverBtnSx = {
@@ -53,7 +54,14 @@ const ViewJobPost = () => {
 
 
   const applyForJob=async(e)=>{
-    let currUserId=JSON.parse(sessionStorage.getItem("user")).userData._id;
+    let currUserId=JSON.parse(sessionStorage.getItem("user"));
+    console.log(currUserId);
+    if(currUserId===null){
+      navigate("/login");
+      return false;
+    }else{
+      currUserId=currUserId.userData._id;
+    }
     let currUserData={'userID':currUserId};
     let url=`/api/applyJob/${userid.id}`;
     // console.log(currUserData);

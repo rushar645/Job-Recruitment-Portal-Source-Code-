@@ -18,6 +18,10 @@ import ViewBlogPage from "../templates/viewBlogPage";
 import ViewProfilePage from "../templates/viewProfilePage";
 import PreviewProfile from "../templates/previewProfile";
 import ChangePassword from "../templates/changePassword";
+import About from "../templates/about";
+import Testimonial from "../templates/testimonial";
+import Faqs from "../templates/faqs";
+import Termscondition from "../templates/termscondition";
 function Navbar() {
   const { auth,user} = useAuth();
 
@@ -48,6 +52,10 @@ function Navbar() {
           {/* { auth && user.role==="employer" && <Route path="postJob" element={<CreateJobPost />}/>} */}
           {auth && user.userData.role==="employer" ? <Route path="postJob" element={<CreateJobPost/>} />:""}
           <Route path="*" element={<PageNotFound/>}/>
+          <Route path="about" element={<About/>}/>
+          <Route path="testimonials" element={<Testimonial/>}/>
+          <Route path="faqs" element={<Faqs/>}/>
+          <Route path="termscondition" element={<Termscondition/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

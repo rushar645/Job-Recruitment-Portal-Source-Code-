@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MainJobCard from "./../components/jobCards/mainJobCard";
 import { MdDelete } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
-
+// import { MdEdit } from "react-icons/md";
+import Faqs from './faqs';
 
 // const userData = {
 //   username: "Purushartha",
@@ -547,7 +547,7 @@ const ProfilePage = (props) => {
             </div>
           </div> : ""}
         <div id="helpContent" className="hide">
-          <div>HELP CONTENT</div>
+          <div><Faqs/></div>
         </div>
       </div>
     </div>
