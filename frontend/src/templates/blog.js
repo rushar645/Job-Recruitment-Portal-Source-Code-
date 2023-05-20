@@ -88,7 +88,7 @@ function Blog() {
                         <BlogMidCard blogdata={blogData} />
                         <BlogMidCard blogdata={blogData} /> */}
                     </div>
-                    <Button variant="contained" sx={viewAllBtnSx}>View all</Button>
+                    {/* <Button variant="contained" sx={viewAllBtnSx}>View all</Button> */}
                 </div>
                 {currUser ? <div className="popularBlogsContainer">
                     <div className="topContainer">
@@ -110,7 +110,7 @@ function Blog() {
                         <BlogSmallCard blogdata={blogData} />
                         <BlogSmallCard blogdata={blogData} />
                         <BlogSmallCard blogdata={blogData} /> */}
-                        <Button variant="contained" sx={viewAllBtnSx}>View all</Button>
+                        {/* <Button variant="contained" sx={viewAllBtnSx}>View all</Button> */}
                     </div>
                 </div>
                     :

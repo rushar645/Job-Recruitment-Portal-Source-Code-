@@ -49,12 +49,16 @@ const PreviewProfile = (props) => {
 
       console.log(res.data);
       setUser(res.data);
-      setProfileImg(
-        `data:image/png;base64,${Buffer.from(
-          res.data.profileImg.data,
-          "binary"
-        ).toString("base64")}`
-      );
+
+      if(res.data.profileImg){
+        setProfileImg(
+          `data:image/png;base64,${Buffer.from(
+            res.data.profileImg.data,
+            "binary"
+          ).toString("base64")}`
+        );
+      }
+
     };
 
     getUserData();
