@@ -1,0 +1,17 @@
+.aboutContainer{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutContainer>h1{
+    margin: 5vh 2vh;
+}
+
+.aboutContainer>p{
+    margin: 2vh 5vh;
+    line-height: 5vh;
+}

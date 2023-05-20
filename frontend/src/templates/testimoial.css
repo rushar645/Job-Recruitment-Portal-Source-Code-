@@ -1,0 +1,20 @@
+.testimonialContainer{
+    height: auto;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+}
+
+.testimonialContainer>h1{
+    margin: 5vh 2vh;
+}
+
+.testimonialContainer>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}

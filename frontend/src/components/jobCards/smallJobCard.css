@@ -35,7 +35,7 @@
 
 .imageHeader>img{
     height: 80%;
-    width: 80%;
+    aspect-ratio: 1/1;
     border: none;
     border-radius: 50%;
 }
@@ -79,12 +79,13 @@
 .smallJobCardDetails>p{
     height: 100%;
     width: 100%;
-    line-height: 21px;
+    line-height: 20px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box !important;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     white-space: normal;
-    padding: 15px;
+    padding: 10px 5px ;
+    padding-bottom: 20px;
 }

@@ -4,6 +4,9 @@ import { SlPhone } from "react-icons/sl";
 import { VscMail } from "react-icons/vsc";
 import { VscGithub } from "react-icons/vsc";
 import { SiTelegram } from "react-icons/si";
+import {Link} from 'react-router-dom';
+import { useAuth } from "../contexts/AuthContext";
+
 
 const iconsSx = {
     fontSize: "1.5em",
@@ -11,6 +14,9 @@ const iconsSx = {
 }
 
 function Footer() {
+    const {auth}=useAuth();
+
+
     return (
         <div className="footerContainer">
             <div className="footerTopContainer">
@@ -22,24 +28,24 @@ function Footer() {
                     <ul>
                         <li><SlLocationPin style={iconsSx} /><h3>India</h3></li>
                         <li><SlPhone style={iconsSx} /><h3>+912314567890</h3></li>
-                        <li><VscMail style={iconsSx} /><h3>abc@gmail.com</h3></li>
+                        <li><VscMail style={iconsSx} /><h3>careermeet.helpdesk@gmail.com</h3></li>
                     </ul>
                 </div>
                 <div className="footerTopRightContainer">
                     <div>
                         <ul>
-                            <li>Search Jobs</li>
-                            <li>Search Recruiters</li>
-                            <li>Browse Blogs</li>
-                            <li>Profile</li>
+                            <li><Link to="">Home</Link></li>
+                            <li><Link to="/search">Search Jobs</Link></li>
+                            <li><Link to="/blog">Browse Blogs</Link></li>
+                            <li><Link to={auth?"/profile":"/login"}>Profile</Link></li>
                         </ul>
                     </div>
                     <div>
                         <ul>
-                            <li>About Us</li>
-                            <li>Recommendations</li>
-                            <li>FAQs</li>
-                            <li>Terms & Conditions of Use</li>
+                            <li><Link to="/about">About us</Link></li>
+                            <li><Link to="/testimonials">Testimonials</Link></li>
+                            <li><Link to="faqs">FAQs</Link></li>
+                            <li><Link to="termscondition">Terms & Conditions of Use</Link></li>
                         </ul>
                     </div>
                 </div>

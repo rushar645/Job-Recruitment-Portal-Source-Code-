@@ -32,7 +32,7 @@ const ViewBlogPage = () => {
         <div className="viewBlogMainContainer">
             <div className="blogContainer">
                 <div className="blogTitleContainer"><h1>{foundBlog?.blogTitle}</h1><p>By: <address>{foundBlog?.username}</address></p></div>
-                {imgUrl?<div className="blogImgContainer" style={{ background: `url(${imgUrl})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}></div> : ""}
+                {imgUrl?<div className="blogImageContainer" style={{ background: `url(${imgUrl})`, backgroundSize: "contain", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}></div> : ""}
                 <div className="blogContentContainer"><p dangerouslySetInnerHTML={{__html: blogContent}}></p></div>
             </div>
         </div>

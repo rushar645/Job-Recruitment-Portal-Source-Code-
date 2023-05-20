@@ -99,7 +99,7 @@ function LoginForm() {
         <img src={Image} alt="Resume Illustration"></img>
       </div>
       <div className="loginFormInnerContainer">
-        <h1>Login Page</h1>
+        <h1>Login(Candidate/Employer)</h1>
         <form
           name="loginForm"
           method="POST"

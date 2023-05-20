@@ -17,3 +17,8 @@ module.exports.findAllJobs=function(){
 module.exports.updateData=async(id,jobData)=>{
   let createJob=await jobModel.updateOne({_id:id},jobData,{upsert:true});
 }
+
+module.exports.removeById=async(id)=>{
+  let removedJob=await jobModel.findByIdAndDelete(id);
+  return removedJob;
+}

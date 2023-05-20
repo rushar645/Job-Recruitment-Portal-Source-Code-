@@ -98,7 +98,7 @@ function Search() {
                 </div>
             </div>
             <div className="mainSearchBottomBodyContainer">
-                <div className="mainSearchOptionSection">
+                {/* <div className="mainSearchOptionSection">
                     <div className="optionsContainer">
                         <div className="jobTypeOptions">
                             <h2>Job Type</h2>
@@ -128,7 +128,7 @@ function Search() {
                             </section>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="mainSearchResultsContainer">
                     <div className="resultJobCardsContainer">
                         {globalJobData.length > 0 ? globalJobData.map((data) => (
@@ -136,19 +136,15 @@ function Search() {
                                 <MainJobCard key={data._id} jobData={data} />
                             </Link>
                         )) : ""}
-                        {/* <MainJobCard jobData={jobData[0]} />
-                        <MainJobCard jobData={jobData[0]} />
-                        <MainJobCard jobData={jobData[0]} />
-                        <MainJobCard jobData={jobData[0]} /> */}
                     </div>
-                    <div className="paginationIndicators">
+                    {/* <div className="paginationIndicators">
                         <h4>&lt;</h4>
                         <h4>1</h4>
                         <h4>2</h4>
                         <h4>3</h4>
                         <h4>4</h4>
                         <h4>&gt;</h4>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <Footer />

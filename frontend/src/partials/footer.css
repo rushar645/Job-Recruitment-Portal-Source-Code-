@@ -108,3 +108,9 @@
 .footerBottomContainer>h3>span{
     color: #126b91;
 }
+
+.footerTopRightContainer>div>ul>li>a{
+    all: revert;
+    text-decoration: none;
+    color: white;
+}

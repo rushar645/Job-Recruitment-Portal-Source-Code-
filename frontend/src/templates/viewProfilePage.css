@@ -1,21 +1,21 @@
 .viewProfilePageMainContainer{
-    min-height: 88vh;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: antiquewhite;
-    padding: 5vh 0vh;
+    /* background-color: antiquewhite; */
+    /* padding: 5vh 0vh; */
 }
 
 .profilePage{
-    min-height: 90%;
-    width: 80%;
+    height: 90%;
+    width: 70%;
     display: flex;
     flex-direction: column;
-    border: 2px solid aliceblue;
+    border: 1px solid #12569b;
+    margin: 5% 0%;
 }
 
 .profileHeaders{
@@ -23,20 +23,21 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: blanchedalmond;
+    background-color: #12569b;
+    color: white;
 }
 
-.imageHeader{
+.profileImageHeader{
     height: 100%;
     width: 30%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: coral;
+    /* background-color: coral; */
 }
 
-.imageHeader>img{
+.profileImageHeader>img{
     height: 30vh;
     width: auto;
     border-radius: 50%;
@@ -47,19 +48,99 @@
     width: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     gap: 1vh;
-    background-color: aqua;
-    padding: 2%;
+    /* background-color: aqua; */
+    padding: 0% 2%;
 }
 
 .profileBody{
-    height: 100vh;
+    height: 100%;
     width: 100%;
     border: 1px solid aliceblue;
-    padding: 5%;
+    /* padding: 5%; */
+}
+
+.profileBody>div{
+    /* margin-bottom: 5%; */
+    margin: 5vh;
+    height: max-content;
 }
 
 .listItem{
-    margin: 2vh 5vh;
+    margin: 3vh 5vh;
+}
+
+.listItem>div>p{
+    height: max-content;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.listItem>div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.linksContainer{
+    height: 6vh;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.linksContainer>h4{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-weight: 200;
+}
+
+.linksContainer>h4>svg{
+    height: 100%;
+    width: auto;
+}
+
+.skillsSection>ul{
+    height: max-content;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* margin: 2% 0%; */
+}
+
+.linksContainer>h4>a{
+    all: revert;
+    color: white;
+    font-weight: 200;
+}
+
+.profileBody a{
+    all: revert;
+}
+
+.skillsContainer{
+    height: auto;
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0% 1%;
+}
+
+.skillsContainer:hover{
+    background-color: #12569b;
+    border: 1px solid #12569b;
+    color: white;
 }

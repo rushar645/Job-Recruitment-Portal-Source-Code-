@@ -86,6 +86,8 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+    gap: 5vh;
+    margin: 5vh 0vh;
 }
 
 .recHeadingContainer{
@@ -125,14 +127,13 @@
 }
 
 .blogCardsContainer{
-    height: 70%;
+    height: 80%;
     width: 90%;
     background-color: rgb(235, 253, 255);
     border: none;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -160,8 +161,10 @@
 
 .companyCardsContainer>img{
     height: 80%;
-    width: auto;
+    aspect-ratio: 1/1;
     cursor: pointer;
+    border: 1px solid aliceblue;
+    border-radius: 50%;
 }
 
 .testimonialsSection{

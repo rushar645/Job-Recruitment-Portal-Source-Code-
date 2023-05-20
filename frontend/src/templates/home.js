@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 // import {URLSearchParamsInit} from 'react-router-dom';
+import { Buffer } from "buffer";
 
 const selOption = [
     { value: "Engineering", label: "Engineering", clasName: " optionStyles" },
@@ -66,8 +67,11 @@ const jobData = [{
 }]
 
 const testimonialData = [{
-    userName: "John Doe",
-    userComment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    userName: "Tushar Kumar",
+    userComment: `One of the key features that impressed me about this job portal is its comprehensive job listings. The portal offers an extensive range of job opportunities from various industries, locations, and levels. I appreciate how detailed the job descriptions are, providing me with clear information about the job requirements, qualifications, and expectations.`
+},{
+    userName: "PST",
+    userComment: `One of the things I appreciate most about this job portal is its wide range of job listings from various industries and locations. The job descriptions are detailed and informative, providing me with a clear understanding of the job requirements and the ideal candidate's qualifications.`
 }]
 
 function Home() {
@@ -82,13 +86,19 @@ function Home() {
         setVal(data);
         setBlogs(data.data.blogs)
     }
-    console.log("VAL: ",val,blogs);
+    console.log("VAL: ", val, blogs);
 
     const handleSearch = async (e) => {
         e.preventDefault();
         let url = `/search?search=${searchInput}&category=${category.value}`;
         console.log(url);
         navigate(url);
+    }
+
+
+    const getBase64ImgUrl=(data)=>{
+        let url=`data:image/png;base64,${Buffer.from(data.companyLogo.data, 'binary').toString('base64')}`;
+        return url;
     }
 
     useEffect(() => {
@@ -132,6 +142,7 @@ function Home() {
                         <SmallJobCard jobData={jobData[0]}/>
                         <SmallJobCard jobData={jobData[0]}/> */}
                     </div>
+                    <Link to="/search"><Button variant="contained">View All</Button></Link>
                 </div>
                 <div className="companyRecommendationSection">
                     <div className="recHeadingContainer">
@@ -139,12 +150,17 @@ function Home() {
                         <h1>Prospective Employers</h1>
                     </div>
                     <div className="companyCardsContainer">
+                        {val? val.data.companies?.map((company)=>{
+                            return(
+                                <img src={getBase64ImgUrl(company)} alt={company.companyName} title={company.companyName}/>
+                            )
+                        }):""}
+                        {/* <img src={DummyLogo} alt="Dummy Logo" />
                         <img src={DummyLogo} alt="Dummy Logo" />
                         <img src={DummyLogo} alt="Dummy Logo" />
                         <img src={DummyLogo} alt="Dummy Logo" />
                         <img src={DummyLogo} alt="Dummy Logo" />
-                        <img src={DummyLogo} alt="Dummy Logo" />
-                        <img src={DummyLogo} alt="Dummy Logo" />
+                        <img src={DummyLogo} alt="Dummy Logo" /> */}
                     </div>
                 </div>
                 <div className="blogRecommendationSection">
@@ -153,8 +169,9 @@ function Home() {
                         <h1>Tips from our Members</h1>
                     </div>
                     <div className="blogCardsContainer">
-                        {blogs? <BlogSmallCard blogdata={blogs[0]} />:""}
-                        {blogs?<BlogSmallCard blogdata={blogs[1]} />:""}
+                        {blogs ? <Link key={blogs[0]._id} to={`/blog/viewBlog/${blogs[0]._id}`}><BlogSmallCard blogdata={blogs[0]} /></Link> : ""}
+                        {blogs ? <Link key={blogs[1]._id} to={`/blog/viewBlog/${blogs[1]._id}`}><BlogSmallCard blogdata={blogs[1]} /></Link> : ""}
+                        <Link to="/blog"><Button variant="contained"> Show All </Button></Link>
                     </div>
                 </div>
                 <div className="testimonialsSection">
@@ -164,7 +181,7 @@ function Home() {
                     </div>
                     <div className="testimonialsCardsContainer">
                         <TestimonialCard testimonialData={testimonialData[0]} />
-                        <TestimonialCard testimonialData={testimonialData[0]} />
+                        <TestimonialCard testimonialData={testimonialData[1]} />
                     </div>
                 </div>
             </div>

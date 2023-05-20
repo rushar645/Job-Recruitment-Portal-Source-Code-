@@ -1,0 +1,36 @@
+.termsconditionContainer{
+    height: auto;
+    width: 96%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.termsconditionContainer>p{
+    height: 100%;
+    width: 100%;
+    font-size: 1.02em;
+    /* background-color: aliceblue; */
+    margin: 10vh 0vh;
+}
+
+.termsconditionContainer>p>ol{
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    margin: 5vh;
+}
+
+.termsconditionContainer>p>ol>li{
+    font-weight: bold;
+}
+
+.termsconditionContainer>p>ol>li>ul{
+    margin: 2vh 5vh;
+    font-weight: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}

@@ -8,7 +8,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MainJobCard from "./../components/jobCards/mainJobCard";
-
+import { MdDelete } from "react-icons/md";
+// import { MdEdit } from "react-icons/md";
+import Faqs from './faqs';
 
 // const userData = {
 //   username: "Purushartha",
@@ -49,14 +51,16 @@ const ProfilePage = (props) => {
 
   const { setAuth, setUser } = useAuth();
   const [isChecked, setIsChecked] = useState(false);
+  const [changedPwd, setChangedPwd] = useState('');
+  const [confirmChangedPwd, setConfirmChangedPwd] = useState('');
 
-  const [fullname, setFullname] = useState();
-  const [phoneno, setPhoneno] = useState();
-  const [gender, setGender] = useState();
-  const [dob, setDob] = useState();
-  const [userAddress, setUserAddress] = useState();
-  const [linkedin, setLinkedin] = useState();
-  const [profileImg, setProfileImg] = useState();
+  const [fullname, setFullname] = useState('');
+  const [phoneno, setPhoneno] = useState('');
+  const [gender, setGender] = useState('');
+  const [dob, setDob] = useState('');
+  const [userAddress, setUserAddress] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [profileImg, setProfileImg] = useState({});
 
   const [dreamRole, setDreamRole] = useState('');
   const [userSkills, setUserSkills] = useState([]);
@@ -80,6 +84,39 @@ const ProfilePage = (props) => {
 
   const navigate = useNavigate();
 
+  const handleChangePwd = async () => {
+    if (confirmChangedPwd !== changedPwd) {
+      toast.warning("Passwords do not match", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
+    }
+    if (confirmChangedPwd === '' || changedPwd === '' || confirmChangedPwd.length<8 || changedPwd.length<8) {
+      toast.warning("Password must contain atleast 8 characters", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
+    } else if (changedPwd === confirmChangedPwd) {
+
+      let res = await axios.post("/api/changePassword", { password: changedPwd });
+      console.log(res);
+
+      if(res.status===233){
+        toast.success("Password changed successfully", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          theme: "colored",
+          className: "toast-message"
+        });
+      }
+    }
+
+
+  }
+
   const handleLogout = async (e) => {
     e.preventDefault();
     let res = await axios.get("/api/logout").then((response) => {
@@ -97,16 +134,41 @@ const ProfilePage = (props) => {
     }
   }
 
+  const handleRemoveJob = async (jobId) => {
+    console.log(jobId);
+    let res = await axios.post(`/api/removeJob`, { id: jobId });
+
+    console.log(res)
+    if (res.status === 232) {
+      toast.info("Job Removed", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message",
+      });
+    }
+  }
+
   const sendPersonalInfo = async () => {
+    let count = 0;
     const personalData = {
-      fullname: fullname ? fullname : "",
-      phoneno: phoneno ? phoneno : "",
-      gender: gender ? gender : "",
-      dob: dob ? dob : "",
-      userAddress: userAddress ? userAddress : "",
-      linkedin: linkedin ? linkedin : "",
+      fullname: fullname ? fullname : count--,
+      phoneno: phoneno ? phoneno : count--,
+      gender: gender ? gender : count--,
+      dob: dob ? dob : count--,
+      userAddress: userAddress ? userAddress : count--,
+      linkedin: linkedin ? linkedin : count--,
       profileImg: profileImg ? profileImg : {}
     }
+
+    if (count < 0) {
+      toast.warning("Please fill all the fields of this section", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
+    }
+
 
     let url = `/api/personalInfo`;
     if (personalData.profileImg === {}) {
@@ -132,10 +194,20 @@ const ProfilePage = (props) => {
   }
 
   const sendPreferenceInfo = async () => {
+    let count = 0;
     const preferenceData = {
-      dreamRole: dreamRole,
-      skills: userSkills,
-      portfolioLink: github
+      dreamRole: dreamRole ? dreamRole : count--,
+      skills: userSkills ? userSkills : count--,
+      portfolioLink: github ? github : count--
+    }
+
+    if (count < 0) {
+      toast.warning("Please fill all the fields of this section", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
     }
 
     console.log(preferenceData);
@@ -153,12 +225,25 @@ const ProfilePage = (props) => {
   }
 
   const sendProjectData = async () => {
+    let count = 0;
     const projectData = {
-      projectTitle: projectTitle,
-      projectLink: projectLink,
-      skillsUsed: skillsUsed
+      projectTitle: projectTitle ? projectTitle : count--,
+      projectLink: projectLink ? projectLink : count--,
+      skillsUsed: skillsUsed ? skillsUsed : count--
     }
+
+    if (count < 0) {
+      toast.warning("Please fill all the fields of this section", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
+    }
+
+
     console.log(projectData);
+
     let url = `/api/projects`;
     let res = await axios.post(url, projectData);
 
@@ -172,11 +257,23 @@ const ProfilePage = (props) => {
   }
 
   const sendExperienceData = async () => {
+    let count = 0;
+
     const experienceData = {
-      designation: designation,
-      company: experienceCompany,
-      duration: duration
+      designation: designation ? designation : count--,
+      company: experienceCompany ? experienceCompany : count--,
+      duration: duration ? duration : count--
     }
+
+    if (count < 0) {
+      toast.warning("Please fill all the fields of this section", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
+    }
+
 
     console.log(experienceData);
     let url = `/api/experience`;
@@ -193,11 +290,22 @@ const ProfilePage = (props) => {
   }
 
   const sendEducationData = async () => {
+    let count = 0;
     const educationData = {
-      course: course,
-      institute: institute,
-      lastYear: lastYear
+      course: course ? course : count--,
+      institute: institute ? institute : count--,
+      lastYear: lastYear ? lastYear : count--
     }
+
+    if (count < 0) {
+      toast.warning("Please fill all the fields of this section", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        theme: "colored",
+        className: "toast-message"
+      });
+      return false;
+    }
+
 
     console.log(educationData);
     let url = `/api/education`;
@@ -246,7 +354,7 @@ const ProfilePage = (props) => {
               ele.classList.remove("hide");
             }}
           >
-           Edit Profile
+            Edit Profile
           </div>
           <div
             className=""
@@ -274,7 +382,7 @@ const ProfilePage = (props) => {
           >
             Activity History
           </div>
-          {props.userData.userData.role==="employer"?<div
+          {props.userData.userData.role === "employer" ? <div
             className=""
             onClick={(e) => {
               e.preventDefault();
@@ -286,7 +394,7 @@ const ProfilePage = (props) => {
             }}
           >
             Posted Jobs
-          </div>:""}
+          </div> : ""}
           <div
             className=""
             onClick={(e) => {
@@ -324,6 +432,7 @@ const ProfilePage = (props) => {
               style={{ display: "none" }}
             />
           </div>
+          <div className="previewBtn"><Link to="/profile/preview"><Button variant="contained">Check Preview</Button></Link></div>
           <div className="profileForm">
             <div className="personalInfo">
               <h1>Personal Information</h1>
@@ -389,12 +498,12 @@ const ProfilePage = (props) => {
           <div className="accountSettings">
             <h1>Change Password</h1>
             <form>
-              <input type={isChecked ? "text" : "password"} placeholder="New Password" />
-              <input type={isChecked ? "text" : "password"} placeholder="Confirm Password" />
+              <input type={isChecked ? "text" : "password"} value={changedPwd} onChange={(e) => { setChangedPwd(e.target.value) }} placeholder="New Password" />
+              <input type={isChecked ? "text" : "password"} value={confirmChangedPwd} onChange={(e) => { setConfirmChangedPwd(e.target.value) }} placeholder="Confirm Password" />
               <label><input type="checkbox" checked={isChecked} onChange={() => { setIsChecked(!isChecked) }} />Show Passwords</label>
             </form>
             <div className="btnContainer">
-              <Button variant="contained">Change</Button>
+              <Button variant="contained" onClick={handleChangePwd} >Change</Button>
             </div>
           </div>
         </div>
@@ -411,7 +520,7 @@ const ProfilePage = (props) => {
           </div>
         </div>
         {props.userData?.userData.role === "employer" ?
-          <div id="postedJobs" className="postedJobs">
+          <div id="postedJobs" className="postedJobs hide">
             <h1>Posted Jobs</h1>
             <div className="postedJobsMainContainer">
               {postedJobs?.map((data) => {
@@ -419,7 +528,11 @@ const ProfilePage = (props) => {
                   <div key={data._id} className="jobWithDetails" >
                     <MainJobCard key={data._id} jobData={data} />
                     <div className="applicantsContainer">
-                      {data.applicants.length>=1?<h4>Applicants</h4>:<h4>No Applicants yet</h4>}
+                      <div className="jobControls">
+                        <Button variant="contained" sx={btnHoverSx} onClick={(e) => handleRemoveJob(data._id)} title="Remove job"><MdDelete /></Button>
+                        {/* <Button variant="contained" sx={btnHoverSx} title="Edit job"><MdEdit /></Button> */}
+                      </div>
+                      {data.applicants.length >= 1 ? <h4>Applicants</h4> : <h4>No Applicants yet</h4>}
                       <ol type="1">
                         {data.applicants?.map((appli) => {
                           return (
@@ -434,7 +547,7 @@ const ProfilePage = (props) => {
             </div>
           </div> : ""}
         <div id="helpContent" className="hide">
-          <div>HELP CONTENT</div>
+          <div><Faqs/></div>
         </div>
       </div>
     </div>
